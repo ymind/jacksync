@@ -42,7 +42,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.0-rc2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4.2")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine/
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.1")
@@ -215,8 +215,8 @@ publishing {
 
     repositories {
         maven {
-            val releasesRepoUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
-            val snapshotsRepoUrl = uri("https://oss.sonatype.org/content/repositories/snapshots")
+            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 
             url = if (version.toString().endsWith("SNAPSHOT", true)) snapshotsRepoUrl else releasesRepoUrl
 
