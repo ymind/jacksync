@@ -1,6 +1,8 @@
 # Jacksync
 
-[![Build Status](https://travis-ci.org/shagaba/jacksync.svg?branch=master)](https://travis-ci.org/shagaba/jacksync)
+> **TIPS**
+> 
+> This project fork from https://github.com/shagaba/jacksync . And I refactored it using kotlin.
 
 ## Creating and applying sync patches (merge, patch, diff, sync)
 

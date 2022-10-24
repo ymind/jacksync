@@ -1,0 +1,133 @@
+package team.yi.jacksync.merge
+
+import com.fasterxml.jackson.databind.JsonNode
+import org.junit.jupiter.api.*
+import team.yi.jacksync.BaseTest
+import team.yi.jacksync.operation.MergeOperation
+import team.yi.jacksync.support.dto.*
+
+@Suppress("LocalVariableName", "VariableNaming")
+class ObjectMergeProcessorTest : BaseTest() {
+    private lateinit var mergeProcessor: MergeProcessor
+
+    @BeforeEach
+    fun beforeEach() {
+        mapper = newObjectMapper()
+        mergeProcessor = ObjectMergeProcessor(mapper)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun addTitle() {
+        val postV1 = Post()
+        val title = "my test title"
+        val postV1_1 = Post()
+        postV1_1.title = title
+
+        val postExpected = Post()
+        postExpected.title = "my test title"
+
+        val mergeOperation = MergeOperation(mapper.valueToTree(postV1_1))
+        val postV2 = mergeProcessor.merge(postV1, mergeOperation)
+
+        Assertions.assertEquals(postV2, postExpected)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun addAuthor() {
+        val postV1 = Post()
+        val author = Author("james", "bond", "james.bond@007.com")
+        val postV1_1 = Post()
+        postV1_1.author = author
+
+        val postExpected = Post()
+        postExpected.author = Author("james", "bond", "james.bond@007.com")
+
+        val mergeOperation = MergeOperation(mapper.valueToTree(postV1_1))
+        val postV2 = mergeProcessor.merge(postV1, mergeOperation)
+
+        Assertions.assertEquals(postV2, postExpected)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun replaceAuthorFirstName() {
+        val postV1 = Post()
+        postV1.author = Author("1", "2", "3")
+
+        val postExpected = Post()
+        postExpected.author = Author("james", "2", "3")
+
+        val postV2 = mergeProcessor.merge(postV1, mapper.readTree("{\"author\":{\"firstName\":\"james\"}}"))
+
+        Assertions.assertEquals(postV2, postExpected)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun replaceAuthorFirstNameToNull() {
+        val postV1 = Post()
+        postV1.author = Author("1", "2", "3")
+
+        val postV2 = mergeProcessor.merge(postV1, "{\"author\":{\"firstName\":null}}")
+
+        Assertions.assertNull(postV2.author?.firstName)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun addMiddleSection() {
+        val postV1 = Post()
+        postV1.sections = listOf(
+            Section("section-1", null),
+            Section("section-2", null),
+            Section("section-3", null),
+            Section("section-4", null),
+        )
+
+        val section2_5 = Section("section-2.5", null)
+
+        val postV1_1 = Post()
+        postV1_1.sections = listOf(
+            Section("section-1", null),
+            Section("section-2", null),
+            section2_5,
+            Section("section-3", null),
+            Section("section-4", null),
+        )
+
+        val postV2 = mergeProcessor.merge(postV1, mapper.valueToTree<JsonNode>(postV1_1))
+
+        Assertions.assertEquals(postV2.sections?.size, 5)
+        Assertions.assertEquals(postV2.sections?.get(2), section2_5)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun addLastSection() {
+        val postV1 = Post()
+        postV1.sections = listOf(
+            Section("section-1", null),
+            Section("section-2", null),
+            Section("section-3", null),
+            Section("section-4", null),
+        )
+
+        val section5 = Section("section-5", null)
+
+        val postV1_1 = Post()
+        postV1_1.sections = listOf(
+            Section("section-1", null),
+            Section("section-2", null),
+            Section("section-3", null),
+            Section("section-4", null),
+            section5
+        )
+
+        val postV2 = mergeProcessor.merge(postV1, mapper.valueToTree<JsonNode>(postV1_1))
+
+        Assertions.assertEquals(postV2.sections?.size, 5)
+        Assertions.assertEquals(postV2.sections?.get(4), section5)
+    }
+}
