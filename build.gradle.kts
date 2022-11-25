@@ -42,7 +42,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine/
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.1")
