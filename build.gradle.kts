@@ -22,7 +22,7 @@ plugins {
 }
 
 group = "team.yi.jacksync"
-version = "0.5.0"
+version = "0.5.4"
 description = "Jacksync provides a library for synchronization by producing and applying a JSON patches to Java objects. Inspired by RFC 6902 (JSON Patch) and RFC 7386 (JSON Merge Patch) written in Java, which uses Jackson at its core."
 
 java {
