@@ -15,7 +15,7 @@ plugins {
     // https://plugins.gradle.org/plugin/se.patrikerdes.use-latest-versions
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
     // https://plugins.gradle.org/plugin/com.github.ben-manes.versions
-    id("com.github.ben-manes.versions") version "0.44.0"
+    id("com.github.ben-manes.versions") version "0.46.0"
 
     // https://plugins.gradle.org/plugin/io.gitlab.arturbosch.detekt
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
@@ -42,10 +42,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine/
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
 }
 
 tasks {
