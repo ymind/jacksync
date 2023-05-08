@@ -46,7 +46,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine/
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.3")
 }
 
 tasks {
@@ -56,7 +56,7 @@ tasks {
     val kotlinSettings: KotlinCompile.() -> Unit = {
         kotlinOptions.jvmTarget = "1.8"
         kotlinOptions.freeCompilerArgs += listOf(
-                "-Xjsr305=strict"
+            "-Xjsr305=strict"
         )
     }
 
