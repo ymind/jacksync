@@ -23,7 +23,8 @@ plugins {
 
 group = "team.yi.jacksync"
 version = "0.5.4"
-description = "Jacksync provides a library for synchronization by producing and applying a JSON patches to Java objects. Inspired by RFC 6902 (JSON Patch) and RFC 7386 (JSON Merge Patch) written in Java, which uses Jackson at its core."
+description = "Jacksync provides a library for synchronization by producing and applying a JSON patches to Java objects. " +
+        "Inspired by RFC 6902 (JSON Patch) and RFC 7386 (JSON Merge Patch) written in Java, which uses Jackson at its core."
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -42,7 +43,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine/
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
