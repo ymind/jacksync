@@ -1,13 +1,13 @@
 package team.yi.jacksync.sync
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import team.yi.jacksync.JacksonObjectMapperWrapper
 import team.yi.jacksync.exception.*
 import team.yi.jacksync.patch.*
 import team.yi.jacksync.utils.ChecksumUtils
 
-open class LocalSyncProcessor(private val objectMapper: ObjectMapper) : SyncProcessor {
+open class LocalSyncProcessor(private val objectMapperWrapper: JacksonObjectMapperWrapper) : SyncProcessor {
     override var isChecksumValidationEnabled = false
-    protected var patchProcessor: PatchProcessor = ObjectPatchProcessor(objectMapper)
+    protected var patchProcessor: PatchProcessor = ObjectPatchProcessor(objectMapperWrapper)
 
     @Throws(SyncException::class)
     override fun <T : Any> clientSync(sourceObject: SyncObject<T>, syncData: SyncData): SyncObject<T> {
@@ -26,7 +26,7 @@ open class LocalSyncProcessor(private val objectMapper: ObjectMapper) : SyncProc
         val targetObject = patchProcessor.patch(sourceObject.data, syncData.operations)
 
         if (isChecksumValidationEnabled) try {
-            val targetJson = objectMapper.writeValueAsString(targetObject)
+            val targetJson = objectMapperWrapper.writeValueAsString(targetObject)
             val isChecksumValid = ChecksumUtils.verifyChecksum(targetJson, syncData.targetChecksum)
 
             if (!isChecksumValid) throw ChecksumMismatchException("Checksum on target does not match checksum on syncData")

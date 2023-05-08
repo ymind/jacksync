@@ -8,11 +8,6 @@ import team.yi.jacksync.utils.JacksonUtils
 import java.util.*
 
 class MoveOperationTest : BaseTest() {
-    @BeforeEach
-    fun beforeEach() {
-        mapper = newObjectMapper()
-    }
-
     @Test
     @Throws(Exception::class)
     fun moveFromTitleToAuthorFirstName() {
@@ -22,14 +17,14 @@ class MoveOperationTest : BaseTest() {
         postV1.title = moveMe
         postV1.author = author
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val moveOperation = MoveOperation(JacksonUtils.toJsonPointer("/title"), JacksonUtils.toJsonPointer("/author/firstName"))
-        val addValueJson = mapper.writeValueAsString(moveOperation)
+        val addValueJson = objectMapperWrapper.writeValueAsString(moveOperation)
 
         // read operation
-        val operation = mapper.readValue(addValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(addValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertNull(postV2.title)
         Assertions.assertEquals(postV2.author?.firstName, moveMe)
@@ -45,14 +40,14 @@ class MoveOperationTest : BaseTest() {
         postV1.tags = listOf("tag1", "tag2", moveMe, "tag3")
         postV1.categories = ArrayList()
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val moveOperation = MoveOperation(JacksonUtils.toJsonPointer("/tags/2"), JacksonUtils.toJsonPointer("/categories/0"))
-        val addValueJson = mapper.writeValueAsString(moveOperation)
+        val addValueJson = objectMapperWrapper.writeValueAsString(moveOperation)
 
         // read operation
-        val operation = mapper.readValue(addValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(addValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertEquals(postV2.categories?.get(0), moveMe)
         Assertions.assertEquals(postV2.categories?.size, 1)
@@ -72,14 +67,14 @@ class MoveOperationTest : BaseTest() {
             Section("section-5", null),
         )
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val moveOperation = MoveOperation(JacksonUtils.toJsonPointer("/sections/1"), JacksonUtils.toJsonPointer("/sections/3"))
-        val addValueJson = mapper.writeValueAsString(moveOperation)
+        val addValueJson = objectMapperWrapper.writeValueAsString(moveOperation)
 
         // read operation
-        val operation = mapper.readValue(addValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(addValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertEquals(postV2.sections?.size, 5)
         Assertions.assertEquals(postV2.sections?.get(3)?.title, moveMe)
@@ -98,14 +93,14 @@ class MoveOperationTest : BaseTest() {
             Section("section-5", null),
         )
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val moveOperation = MoveOperation(JacksonUtils.toJsonPointer("/sections/1"), JacksonUtils.toJsonPointer("/sections/-"))
-        val addValueJson = mapper.writeValueAsString(moveOperation)
+        val addValueJson = objectMapperWrapper.writeValueAsString(moveOperation)
 
         // read operation
-        val operation = mapper.readValue(addValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(addValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertEquals(postV2.sections?.size, 5)
         Assertions.assertEquals(postV2.sections?.get(4)?.title, moveMe)

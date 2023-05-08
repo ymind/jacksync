@@ -10,8 +10,7 @@ class ObjectDiffMapperTest : BaseTest() {
 
     @BeforeEach
     fun beforeEach() {
-        mapper = newObjectMapper()
-        diffMapper = ObjectDiffMapper(mapper)
+        diffMapper = ObjectDiffMapper(objectMapperWrapper)
     }
 
     @Test
@@ -42,8 +41,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -64,8 +63,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -88,8 +87,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -113,8 +112,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -148,8 +147,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -183,8 +182,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -205,8 +204,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -227,8 +226,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -251,8 +250,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -277,8 +276,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -301,8 +300,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -336,8 +335,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -371,8 +370,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {
@@ -413,8 +412,8 @@ class ObjectDiffMapperTest : BaseTest() {
         val operations = diffMapper.diff(source, target)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {

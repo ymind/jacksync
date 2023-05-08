@@ -2,17 +2,18 @@ package team.yi.jacksync.patch
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.*
+import team.yi.jacksync.JacksonObjectMapperWrapper
 import team.yi.jacksync.exception.PatchProcessingException
 import team.yi.jacksync.operation.PatchOperation
 import java.io.IOException
 
-class ObjectPatchProcessor(private val objectMapper: ObjectMapper) : PatchProcessor {
+class ObjectPatchProcessor(private val objectMapperWrapper: JacksonObjectMapperWrapper) : PatchProcessor {
     @Throws(PatchProcessingException::class)
     override fun <T : Any> patch(sourceObject: T, jsonOperations: String): T {
         val operations: List<PatchOperation>
 
         try {
-            operations = objectMapper.readValue(jsonOperations, object : TypeReference<List<PatchOperation>>() {})
+            operations = objectMapperWrapper.readValue(jsonOperations, object : TypeReference<List<PatchOperation>>() {})
         } catch (e: IOException) {
             throw IllegalArgumentException(e)
         }
@@ -23,10 +24,10 @@ class ObjectPatchProcessor(private val objectMapper: ObjectMapper) : PatchProces
     @Throws(PatchProcessingException::class)
     override fun <T : Any> patch(sourceObject: T, operations: List<PatchOperation>): T {
         return try {
-            val sourceJsonNode = objectMapper.valueToTree<JsonNode>(sourceObject)
+            val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(sourceObject)
             val targetJsonNode = patch(sourceJsonNode, operations)
 
-            objectMapper.treeToValue(targetJsonNode, sourceObject.javaClass) as T
+            objectMapperWrapper.treeToValue(targetJsonNode, sourceObject.javaClass)
         } catch (e: Exception) {
             throw PatchProcessingException(e)
         }

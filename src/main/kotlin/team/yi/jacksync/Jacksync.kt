@@ -1,22 +1,21 @@
 package team.yi.jacksync
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import team.yi.jacksync.diff.*
 import team.yi.jacksync.diff.strategy.*
 import team.yi.jacksync.sync.*
 
 class Jacksync private constructor(jacksyncBuilder: JacksyncBuilder) {
-    val objectMapper: ObjectMapper
+    val objectMapperWrapper: JacksonObjectMapperWrapper
     val syncProcessor: SyncProcessor
     val diffMapper: SyncDiffMapper
 
     init {
-        objectMapper = jacksyncBuilder.objectMapper
+        objectMapperWrapper = jacksyncBuilder.mapperWrapper
         syncProcessor = jacksyncBuilder.localSyncProcessor
         diffMapper = jacksyncBuilder.diffMapperBuilder.syncObjectDiffMapper
     }
 
-    class JacksyncBuilder(internal val objectMapper: ObjectMapper) {
+    class JacksyncBuilder(internal val mapperWrapper: JacksonObjectMapperWrapper) {
         internal lateinit var localSyncProcessor: LocalSyncProcessor
         internal lateinit var diffMapperBuilder: DiffMapperBuilder
 
@@ -24,13 +23,13 @@ class Jacksync private constructor(jacksyncBuilder: JacksyncBuilder) {
          * localSync to set
          */
         fun syncProcessor(): JacksyncBuilder {
-            localSyncProcessor = LocalSyncProcessor(objectMapper)
+            localSyncProcessor = LocalSyncProcessor(mapperWrapper)
 
             return this
         }
 
         fun diffMapper(): DiffMapperBuilder {
-            diffMapperBuilder = DiffMapperBuilder(this, objectMapper)
+            diffMapperBuilder = DiffMapperBuilder(this, mapperWrapper)
 
             return diffMapperBuilder
         }
@@ -42,28 +41,28 @@ class Jacksync private constructor(jacksyncBuilder: JacksyncBuilder) {
 
     class DiffMapperBuilder(
         private val jacksyncBuilder: JacksyncBuilder,
-        private val objectMapper: ObjectMapper,
+        private val mapperWrapper: JacksonObjectMapperWrapper,
     ) {
         internal var syncObjectDiffMapper: SyncObjectDiffMapper
 
         init {
-            syncObjectDiffMapper = SyncObjectDiffMapper(objectMapper)
+            syncObjectDiffMapper = SyncObjectDiffMapper(mapperWrapper)
         }
 
         fun diffStrategy(diffStrategy: DiffStrategy): JacksyncBuilder {
-            syncObjectDiffMapper = SyncObjectDiffMapper(objectMapper, diffStrategy)
+            syncObjectDiffMapper = SyncObjectDiffMapper(mapperWrapper, diffStrategy)
 
             return jacksyncBuilder
         }
 
         fun mergeOperationDiffProcessor(): JacksyncBuilder {
-            syncObjectDiffMapper = SyncObjectDiffMapper(objectMapper, MergeOperationDiffStrategy())
+            syncObjectDiffMapper = SyncObjectDiffMapper(mapperWrapper, MergeOperationDiffStrategy())
 
             return jacksyncBuilder
         }
 
         fun simpleDiffStrategy(): JacksyncBuilder {
-            syncObjectDiffMapper = SyncObjectDiffMapper(objectMapper, SimpleDiffStrategy())
+            syncObjectDiffMapper = SyncObjectDiffMapper(mapperWrapper, SimpleDiffStrategy())
 
             return jacksyncBuilder
         }
@@ -76,8 +75,8 @@ class Jacksync private constructor(jacksyncBuilder: JacksyncBuilder) {
     }
 
     companion object {
-        fun builder(objectMapper: ObjectMapper): JacksyncBuilder {
-            return JacksyncBuilder(objectMapper)
+        fun builder(objectMapperWrapper: JacksonObjectMapperWrapper): JacksyncBuilder {
+            return JacksyncBuilder(objectMapperWrapper)
         }
     }
 }

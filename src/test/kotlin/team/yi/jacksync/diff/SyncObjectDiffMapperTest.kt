@@ -13,8 +13,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
     @BeforeEach
     fun beforeEach() {
-        mapper = newObjectMapper()
-        syncDiffMapper = SyncObjectDiffMapper(mapper)
+        syncDiffMapper = SyncObjectDiffMapper(objectMapperWrapper)
     }
 
     @Test
@@ -57,8 +56,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         postV1_1.title = "my test title"
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -68,7 +67,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -79,8 +78,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         postV1_1.author = Author("james", "bond", "james.bond@007.com")
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -90,7 +89,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -103,8 +102,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         postV1_1.author = Author("james", null, null)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -114,7 +113,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -127,8 +126,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         )
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -138,7 +137,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -162,8 +161,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         )
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -173,7 +172,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -197,8 +196,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         )
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -208,7 +207,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -220,8 +219,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         val postV1_1 = Post()
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -231,7 +230,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -243,8 +242,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         val postV1_1 = Post()
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -254,7 +253,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -267,8 +266,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         postV1_1.author = Author()
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -278,7 +277,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -294,8 +293,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         val postV1_1 = Post()
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -305,7 +304,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -319,8 +318,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         val postV1_1 = Post()
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -330,7 +329,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -354,8 +353,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         )
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -365,7 +364,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
@@ -389,8 +388,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         )
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, postV1), SyncObject(1L, postV1_1))
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -400,13 +399,13 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
         Assertions.assertEquals(operations.size, 1)
         Assertions.assertEquals(syncedJsonNode, targetJsonNode)
-        Assertions.assertEquals(mapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
+        Assertions.assertEquals(objectMapperWrapper.treeToValue(syncedJsonNode, Post::class.java), postV1_1)
     }
 
     @Test
     @Throws(Exception::class)
     fun complicated() {
-        syncDiffMapper = SyncObjectDiffMapper(mapper, MergeOperationDiffStrategy())
+        syncDiffMapper = SyncObjectDiffMapper(objectMapperWrapper, MergeOperationDiffStrategy())
 
         val source = Post()
         source.id = "1"
@@ -435,8 +434,8 @@ class SyncObjectDiffMapperTest : BaseTest() {
         val (_, _, _, operations) = syncDiffMapper.diff(SyncObject(1L, source), SyncObject(1L, target))
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(source)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(target)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
         for (operation in operations) {

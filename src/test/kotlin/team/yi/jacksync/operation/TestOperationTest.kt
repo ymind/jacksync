@@ -9,11 +9,6 @@ import team.yi.jacksync.utils.JacksonUtils
 import java.util.*
 
 class TestOperationTest : BaseTest() {
-    @BeforeEach
-    fun beforeEach() {
-        mapper = newObjectMapper()
-    }
-
     @Test
     @Throws(Exception::class)
     fun testTitle() {
@@ -21,14 +16,14 @@ class TestOperationTest : BaseTest() {
         val postV1 = Post()
         postV1.title = title
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
-        val testOperation = TestOperation(JacksonUtils.toJsonPointer("/title"), mapper.valueToTree(title))
-        val testValueJson = mapper.writeValueAsString(testOperation)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val testOperation = TestOperation(JacksonUtils.toJsonPointer("/title"), objectMapperWrapper.valueToTree(title))
+        val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
         // read operation
-        val operation = mapper.readValue(testValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(testValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertEquals(postV2, postV1)
     }
@@ -40,12 +35,12 @@ class TestOperationTest : BaseTest() {
             val postV1 = Post()
             postV1.title = "$title, im different"
 
-            val postV1Node = mapper.valueToTree<JsonNode>(postV1)
-            val testOperation = TestOperation(JacksonUtils.toJsonPointer("/title"), mapper.valueToTree(title))
-            val testValueJson = mapper.writeValueAsString(testOperation)
+            val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+            val testOperation = TestOperation(JacksonUtils.toJsonPointer("/title"), objectMapperWrapper.valueToTree(title))
+            val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
             // read operation
-            val operation = mapper.readValue(testValueJson, PatchOperation::class.java)
+            val operation = objectMapperWrapper.readValue(testValueJson, PatchOperation::class.java)
 
             operation.apply(postV1Node)
         }
@@ -58,14 +53,14 @@ class TestOperationTest : BaseTest() {
         val postV1 = Post()
         postV1.tags = listOf("tag1", "tag2", testMe, "tag3")
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
-        val testOperation = TestOperation(JacksonUtils.toJsonPointer("/tags/2"), mapper.valueToTree(testMe))
-        val testValueJson = mapper.writeValueAsString(testOperation)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val testOperation = TestOperation(JacksonUtils.toJsonPointer("/tags/2"), objectMapperWrapper.valueToTree(testMe))
+        val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
         // read operation
-        val operation = mapper.readValue(testValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(testValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertEquals(postV2, postV1)
     }
@@ -77,15 +72,15 @@ class TestOperationTest : BaseTest() {
             val postV1 = Post()
             postV1.tags = listOf("tag1", "tag2", "$testMe, im different", "tag3")
 
-            val postV1Node = mapper.valueToTree<JsonNode>(postV1)
-            val testOperation = TestOperation(JacksonUtils.toJsonPointer("/tags/2"), mapper.valueToTree(testMe))
-            val testValueJson = mapper.writeValueAsString(testOperation)
+            val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+            val testOperation = TestOperation(JacksonUtils.toJsonPointer("/tags/2"), objectMapperWrapper.valueToTree(testMe))
+            val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
             // read operation
-            val operation = mapper.readValue(testValueJson, PatchOperation::class.java)
+            val operation = objectMapperWrapper.readValue(testValueJson, PatchOperation::class.java)
             val postV2Node = operation.apply(postV1Node)
 
-            mapper.treeToValue(postV2Node, Post::class.java)
+            objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
         }
     }
 
@@ -102,14 +97,14 @@ class TestOperationTest : BaseTest() {
             Section("section-5", null),
         )
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
-        val testOperation = TestOperation(JacksonUtils.toJsonPointer("/sections/1"), mapper.valueToTree(section2))
-        val testValueJson = mapper.writeValueAsString(testOperation)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val testOperation = TestOperation(JacksonUtils.toJsonPointer("/sections/1"), objectMapperWrapper.valueToTree(section2))
+        val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
         // read operation
-        val operation = mapper.readValue(testValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(testValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertEquals(postV2, postV1)
     }
@@ -127,15 +122,15 @@ class TestOperationTest : BaseTest() {
                 Section("section-5", null),
             )
 
-            val postV1Node = mapper.valueToTree<JsonNode>(postV1)
-            val testOperation = TestOperation(JacksonUtils.toJsonPointer("/sections/1"), mapper.valueToTree(section2))
-            val testValueJson = mapper.writeValueAsString(testOperation)
+            val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+            val testOperation = TestOperation(JacksonUtils.toJsonPointer("/sections/1"), objectMapperWrapper.valueToTree(section2))
+            val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
             // read operation
-            val operation = mapper.readValue(testValueJson, PatchOperation::class.java)
+            val operation = objectMapperWrapper.readValue(testValueJson, PatchOperation::class.java)
             val postV2Node = operation.apply(postV1Node)
 
-            mapper.treeToValue(postV2Node, Post::class.java)
+            objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
         }
     }
 }

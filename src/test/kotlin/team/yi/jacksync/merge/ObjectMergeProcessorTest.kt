@@ -12,8 +12,7 @@ class ObjectMergeProcessorTest : BaseTest() {
 
     @BeforeEach
     fun beforeEach() {
-        mapper = newObjectMapper()
-        mergeProcessor = ObjectMergeProcessor(mapper)
+        mergeProcessor = ObjectMergeProcessor(objectMapperWrapper)
     }
 
     @Test
@@ -27,7 +26,7 @@ class ObjectMergeProcessorTest : BaseTest() {
         val postExpected = Post()
         postExpected.title = "my test title"
 
-        val mergeOperation = MergeOperation(mapper.valueToTree(postV1_1))
+        val mergeOperation = MergeOperation(objectMapperWrapper.valueToTree(postV1_1))
         val postV2 = mergeProcessor.merge(postV1, mergeOperation)
 
         Assertions.assertEquals(postV2, postExpected)
@@ -44,7 +43,7 @@ class ObjectMergeProcessorTest : BaseTest() {
         val postExpected = Post()
         postExpected.author = Author("james", "bond", "james.bond@007.com")
 
-        val mergeOperation = MergeOperation(mapper.valueToTree(postV1_1))
+        val mergeOperation = MergeOperation(objectMapperWrapper.valueToTree(postV1_1))
         val postV2 = mergeProcessor.merge(postV1, mergeOperation)
 
         Assertions.assertEquals(postV2, postExpected)
@@ -59,7 +58,7 @@ class ObjectMergeProcessorTest : BaseTest() {
         val postExpected = Post()
         postExpected.author = Author("james", "2", "3")
 
-        val postV2 = mergeProcessor.merge(postV1, mapper.readTree("{\"author\":{\"firstName\":\"james\"}}"))
+        val postV2 = mergeProcessor.merge(postV1, objectMapperWrapper.readTree("{\"author\":{\"firstName\":\"james\"}}"))
 
         Assertions.assertEquals(postV2, postExpected)
     }
@@ -97,7 +96,7 @@ class ObjectMergeProcessorTest : BaseTest() {
             Section("section-4", null),
         )
 
-        val postV2 = mergeProcessor.merge(postV1, mapper.valueToTree<JsonNode>(postV1_1))
+        val postV2 = mergeProcessor.merge(postV1, objectMapperWrapper.valueToTree<JsonNode>(postV1_1))
 
         Assertions.assertEquals(postV2.sections?.size, 5)
         Assertions.assertEquals(postV2.sections?.get(2), section2_5)
@@ -125,7 +124,7 @@ class ObjectMergeProcessorTest : BaseTest() {
             section5
         )
 
-        val postV2 = mergeProcessor.merge(postV1, mapper.valueToTree<JsonNode>(postV1_1))
+        val postV2 = mergeProcessor.merge(postV1, objectMapperWrapper.valueToTree<JsonNode>(postV1_1))
 
         Assertions.assertEquals(postV2.sections?.size, 5)
         Assertions.assertEquals(postV2.sections?.get(4), section5)

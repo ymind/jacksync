@@ -10,10 +10,8 @@ class JacksyncTest : BaseTest() {
 
     @BeforeEach
     fun beforeEach() {
-        mapper = newObjectMapper()
-
         jacksync = Jacksync
-            .builder(mapper)
+            .builder(objectMapperWrapper)
             .syncProcessor()
             .diffMapper()
             .simpleDiffStrategy()

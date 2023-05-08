@@ -11,7 +11,6 @@ class MergeOperationDiffStrategyTest : BaseTest() {
 
     @BeforeEach
     fun beforeEach() {
-        mapper = newObjectMapper()
         mergeOperationDiffStrategy = MergeOperationDiffStrategy()
     }
 
@@ -23,8 +22,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         postV1_1.title = "my test title"
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -44,8 +43,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         postV1_1.author = Author("james", "bond", "james.bond@007.com")
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -67,8 +66,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         postV1_1.author = Author("james", null, null)
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -90,8 +89,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         )
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -124,8 +123,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         )
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -158,8 +157,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         )
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -179,8 +178,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         val postV1_1 = Post()
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -200,8 +199,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         val postV1_1 = Post()
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -223,8 +222,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         postV1_1.author = Author()
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -249,8 +248,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         val postV1_1 = Post()
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -273,8 +272,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         val postV1_1 = Post()
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -307,8 +306,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         )
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 
@@ -341,8 +340,8 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         )
 
         // operations simple diff
-        val sourceJsonNode = mapper.valueToTree<JsonNode>(postV1)
-        val targetJsonNode = mapper.valueToTree<JsonNode>(postV1_1)
+        val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1)
+        val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(postV1_1)
         val operations = mergeOperationDiffStrategy.diff(sourceJsonNode, targetJsonNode)
         var syncedJsonNode = sourceJsonNode.deepCopy<JsonNode>()
 

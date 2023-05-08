@@ -7,11 +7,6 @@ import team.yi.jacksync.support.dto.*
 import team.yi.jacksync.utils.JacksonUtils
 
 class RemoveOperationTest : BaseTest() {
-    @BeforeEach
-    fun beforeEach() {
-        mapper = newObjectMapper()
-    }
-
     @Test
     @Throws(Exception::class)
     fun removeTitle() {
@@ -19,14 +14,14 @@ class RemoveOperationTest : BaseTest() {
         val postV1 = Post()
         postV1.title = title
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val removeOperation = RemoveOperation(JacksonUtils.toJsonPointer("/title"))
-        val removeValueJson = mapper.writeValueAsString(removeOperation)
+        val removeValueJson = objectMapperWrapper.writeValueAsString(removeOperation)
 
         // read operation
-        val operation = mapper.readValue(removeValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(removeValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertNull(postV2.title)
     }
@@ -38,14 +33,14 @@ class RemoveOperationTest : BaseTest() {
         val postV1 = Post()
         postV1.author = author
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val removeOperation = RemoveOperation(JacksonUtils.toJsonPointer("/author"))
-        val removeValueJson = mapper.writeValueAsString(removeOperation)
+        val removeValueJson = objectMapperWrapper.writeValueAsString(removeOperation)
 
         // read operation
-        val operation = mapper.readValue(removeValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(removeValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertNull(postV2.author)
     }
@@ -57,14 +52,14 @@ class RemoveOperationTest : BaseTest() {
         val postV1 = Post()
         postV1.author = author
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val removeOperation = RemoveOperation(JacksonUtils.toJsonPointer("/author/firstName"))
-        val removeValueJson = mapper.writeValueAsString(removeOperation)
+        val removeValueJson = objectMapperWrapper.writeValueAsString(removeOperation)
 
         // read operation
-        val operation = mapper.readValue(removeValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(removeValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertNull(postV2.author?.firstName)
     }
@@ -79,14 +74,14 @@ class RemoveOperationTest : BaseTest() {
             Section("section-3", null),
         )
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val removeOperation = RemoveOperation(JacksonUtils.toJsonPointer("/sections"))
-        val removeValueJson = mapper.writeValueAsString(removeOperation)
+        val removeValueJson = objectMapperWrapper.writeValueAsString(removeOperation)
 
         // read operation
-        val operation = mapper.readValue(removeValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(removeValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertNull(postV2.sections)
     }
@@ -99,14 +94,14 @@ class RemoveOperationTest : BaseTest() {
             Section("section-1", null),
         )
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val removeOperation = RemoveOperation(JacksonUtils.toJsonPointer("/sections/0"))
-        val removeValueJson = mapper.writeValueAsString(removeOperation)
+        val removeValueJson = objectMapperWrapper.writeValueAsString(removeOperation)
 
         // read operation
-        val operation = mapper.readValue(removeValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(removeValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertEquals(postV2.sections?.size, 0)
     }
@@ -121,14 +116,14 @@ class RemoveOperationTest : BaseTest() {
             Section("section-3", null),
         )
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val removeOperation = RemoveOperation(JacksonUtils.toJsonPointer("/sections/1"))
-        val removeValueJson = mapper.writeValueAsString(removeOperation)
+        val removeValueJson = objectMapperWrapper.writeValueAsString(removeOperation)
 
         // read operation
-        val operation = mapper.readValue(removeValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(removeValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertEquals(postV2.sections?.size, 2)
         Assertions.assertEquals(postV2.sections?.get(0)?.title, "section-1")
@@ -146,14 +141,14 @@ class RemoveOperationTest : BaseTest() {
             Section("section-4", null),
         )
 
-        val postV1Node = mapper.valueToTree<JsonNode>(postV1)
+        val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val removeOperation = RemoveOperation(JacksonUtils.toJsonPointer("/sections/3"))
-        val removeValueJson = mapper.writeValueAsString(removeOperation)
+        val removeValueJson = objectMapperWrapper.writeValueAsString(removeOperation)
 
         // read operation
-        val operation = mapper.readValue(removeValueJson, PatchOperation::class.java)
+        val operation = objectMapperWrapper.readValue(removeValueJson, PatchOperation::class.java)
         val postV2Node = operation.apply(postV1Node)
-        val postV2 = mapper.treeToValue(postV2Node, Post::class.java)
+        val postV2 = objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
 
         Assertions.assertEquals(postV2.sections?.size, 3)
         Assertions.assertEquals(postV2.sections?.get(2)?.title, "section-3")
