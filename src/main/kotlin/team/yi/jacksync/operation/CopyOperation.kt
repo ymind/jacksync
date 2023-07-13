@@ -45,4 +45,8 @@ class CopyOperation : PatchDualPathOperation {
 
         return addOperation.apply(sourceJsonNode)
     }
+
+    companion object {
+        const val OP_NAME = "copy"
+    }
 }

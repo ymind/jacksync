@@ -52,4 +52,8 @@ class RemoveOperation : PatchPathOperation {
 
         return sourceJsonNode
     }
+
+    companion object {
+        const val OP_NAME = "remove"
+    }
 }

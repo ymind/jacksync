@@ -85,4 +85,8 @@ class MergeOperation : PatchPathValueOperation {
             }
         }
     }
+
+    companion object {
+        const val OP_NAME = "merge"
+    }
 }

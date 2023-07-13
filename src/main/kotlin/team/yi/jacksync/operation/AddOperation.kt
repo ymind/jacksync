@@ -92,4 +92,8 @@ class AddOperation : PatchPathValueOperation {
 
         return sourceJsonNode
     }
+
+    companion object {
+        const val OP_NAME = "add"
+    }
 }

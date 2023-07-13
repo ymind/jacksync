@@ -55,4 +55,8 @@ class ReplaceOperation : PatchPathValueOperation {
 
         return sourceJsonNode
     }
+
+    companion object {
+        const val OP_NAME = "replace"
+    }
 }

@@ -51,4 +51,8 @@ class MoveOperation : PatchDualPathOperation {
 
         return addOperation.apply(removeOperation.apply(sourceJsonNode))
     }
+
+    companion object {
+        const val OP_NAME = "move"
+    }
 }

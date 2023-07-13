@@ -2,6 +2,8 @@ package team.yi.jacksync
 
 import team.yi.jacksync.diff.*
 import team.yi.jacksync.diff.strategy.*
+import team.yi.jacksync.difflog.*
+import team.yi.jacksync.operation.PatchOperation
 import team.yi.jacksync.sync.*
 
 class Jacksync private constructor(jacksyncBuilder: JacksyncBuilder) {
@@ -79,4 +81,8 @@ class Jacksync private constructor(jacksyncBuilder: JacksyncBuilder) {
             return JacksyncBuilder(objectMapperWrapper)
         }
     }
+}
+
+fun List<PatchOperation>.toDiffLogs(): List<DiffLog> {
+    return DiffLogUtils.toDiffLogs(this)
 }

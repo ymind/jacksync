@@ -69,4 +69,8 @@ class TestOperation : PatchPathValueOperation {
 
         return sourceJsonNode
     }
+
+    companion object {
+        const val OP_NAME = "test"
+    }
 }
