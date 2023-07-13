@@ -5,11 +5,9 @@ import org.junit.jupiter.api.*
 import team.yi.jacksync.BaseTest
 import team.yi.jacksync.support.dto.*
 import team.yi.jacksync.utils.JacksonUtils
-import java.util.*
 
 class CopyOperationTest : BaseTest() {
     @Test
-    @Throws(Exception::class)
     fun copyFromTitleToAuthorFirstName() {
         val copyMe = "please copy me"
         val author = Author("james", "bond", "james.bond@007.com")
@@ -33,7 +31,6 @@ class CopyOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun copyFromTagToCategory() {
         val copyMe = "please copy me"
         val postV1 = Post()
@@ -55,7 +52,6 @@ class CopyOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun copySection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -80,7 +76,6 @@ class CopyOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun copyAfterLastSection() {
         val postV1 = Post()
         postV1.sections = listOf(

@@ -8,7 +8,6 @@ import team.yi.jacksync.utils.JacksonUtils
 
 class ReplaceOperationTest : BaseTest() {
     @Test
-    @Throws(Exception::class)
     fun replaceTitle() {
         val postV1 = Post()
         postV1.title = "1stTitle"
@@ -27,7 +26,6 @@ class ReplaceOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun replaceAuthor() {
         val authorV1 = Author("harry", "potter", "harry.potter@wizard.com")
         val postV1 = Post()
@@ -47,7 +45,6 @@ class ReplaceOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun replaceAuthorFirstName() {
         val authorV1 = Author("harry", "potter", "harry.potter@wizard.com")
         val postV1 = Post()
@@ -69,7 +66,6 @@ class ReplaceOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun replaceMiddleSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -95,7 +91,6 @@ class ReplaceOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun replaceLastSection() {
         val postV1 = Post()
         postV1.sections = listOf(

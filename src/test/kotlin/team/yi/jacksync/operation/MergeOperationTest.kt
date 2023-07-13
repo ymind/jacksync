@@ -9,7 +9,6 @@ import team.yi.jacksync.utils.JacksonUtils
 @Suppress("LocalVariableName", "VariableNaming")
 class MergeOperationTest : BaseTest() {
     @Test
-    @Throws(Exception::class)
     fun addTitle() {
         val postV1 = Post()
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
@@ -29,7 +28,6 @@ class MergeOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addAuthor() {
         val postV1 = Post()
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
@@ -49,7 +47,6 @@ class MergeOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun replaceAuthorFirstName() {
         val postV1 = Post()
         postV1.author = Author("1", "2", "3")
@@ -67,7 +64,6 @@ class MergeOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun replaceAuthorFirstNameToNull() {
         val postV1 = Post()
         postV1.author = Author("1", "2", "3")
@@ -85,7 +81,6 @@ class MergeOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeAuthor() {
         val postV1 = Post()
         postV1.author = Author("james", "bond", "james.bond@007.com")
@@ -103,7 +98,6 @@ class MergeOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addSections() {
         val postV1 = Post()
         postV1.author = Author("james", "bond", "james.bond@007.com")
@@ -128,7 +122,6 @@ class MergeOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addMiddleSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -162,7 +155,6 @@ class MergeOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addLastSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -196,7 +188,6 @@ class MergeOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeSections() {
         val postV1 = Post()
         postV1.author = Author("james", "bond", "james.bond@007.com")

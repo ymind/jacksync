@@ -7,7 +7,6 @@ import team.yi.jacksync.diff.ObjectDiffMapper
 import team.yi.jacksync.operation.*
 import team.yi.jacksync.support.dto.*
 import team.yi.jacksync.utils.JacksonUtils
-import java.util.*
 
 @Suppress("LocalVariableName", "VariableNaming")
 class ObjectPatchProcessorTest : BaseTest() {
@@ -19,7 +18,6 @@ class ObjectPatchProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun serverSyncV1() {
         // server post
         val postV1 = Post()
@@ -44,7 +42,6 @@ class ObjectPatchProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun clientSyncV2() {
         // server post
         val serverPostV1 = Post()
@@ -75,7 +72,6 @@ class ObjectPatchProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun clientSyncV3() {
         // client post
         val postV1 = Post()
@@ -108,7 +104,6 @@ class ObjectPatchProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun clientSyncV4() {
         // client post
         val postV1 = Post()

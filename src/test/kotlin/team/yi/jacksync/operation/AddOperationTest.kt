@@ -9,7 +9,6 @@ import team.yi.jacksync.utils.JacksonUtils
 @Suppress("LocalVariableName", "VariableNaming")
 class AddOperationTest : BaseTest() {
     @Test
-    @Throws(Exception::class)
     fun addTitle() {
         val postV1 = Post()
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
@@ -26,7 +25,6 @@ class AddOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addAuthor() {
         val postV1 = Post()
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
@@ -43,7 +41,6 @@ class AddOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addAuthorFirstName() {
         val postV1 = Post()
         postV1.author = Author()
@@ -62,7 +59,6 @@ class AddOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addFirstSection() {
         val postV1 = Post()
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
@@ -83,7 +79,6 @@ class AddOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addMiddleSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -108,7 +103,6 @@ class AddOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addLastSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -133,7 +127,6 @@ class AddOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addAfterLastSection() {
         val postV1 = Post()
         postV1.sections = listOf(

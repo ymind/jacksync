@@ -8,7 +8,6 @@ import team.yi.jacksync.utils.JacksonUtils
 
 class RemoveOperationTest : BaseTest() {
     @Test
-    @Throws(Exception::class)
     fun removeTitle() {
         val title = "my test title"
         val postV1 = Post()
@@ -27,7 +26,6 @@ class RemoveOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeAuthor() {
         val author = Author("james", "bond", "james.bond@007.com")
         val postV1 = Post()
@@ -46,7 +44,6 @@ class RemoveOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeAuthorFirstName() {
         val author = Author("james", "bond", "james.bond@007.com")
         val postV1 = Post()
@@ -65,7 +62,6 @@ class RemoveOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeSections() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -87,7 +83,6 @@ class RemoveOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeFirstSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -107,7 +102,6 @@ class RemoveOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeMiddleSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -131,7 +125,6 @@ class RemoveOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeLastSection() {
         val postV1 = Post()
         postV1.sections = listOf(

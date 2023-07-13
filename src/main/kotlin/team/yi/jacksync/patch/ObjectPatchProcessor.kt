@@ -1,14 +1,13 @@
 package team.yi.jacksync.patch
 
 import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.*
+import com.fasterxml.jackson.databind.JsonNode
 import team.yi.jacksync.JacksonObjectMapperWrapper
 import team.yi.jacksync.exception.PatchProcessingException
 import team.yi.jacksync.operation.PatchOperation
 import java.io.IOException
 
 class ObjectPatchProcessor(private val objectMapperWrapper: JacksonObjectMapperWrapper) : PatchProcessor {
-    @Throws(PatchProcessingException::class)
     override fun <T : Any> patch(sourceObject: T, jsonOperations: String): T {
         val operations: List<PatchOperation>
 
@@ -21,7 +20,6 @@ class ObjectPatchProcessor(private val objectMapperWrapper: JacksonObjectMapperW
         return patch(sourceObject, operations)
     }
 
-    @Throws(PatchProcessingException::class)
     override fun <T : Any> patch(sourceObject: T, operations: List<PatchOperation>): T {
         return try {
             val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(sourceObject)

@@ -9,17 +9,14 @@ open class LocalSyncProcessor(private val objectMapperWrapper: JacksonObjectMapp
     override var isChecksumValidationEnabled = false
     protected var patchProcessor: PatchProcessor = ObjectPatchProcessor(objectMapperWrapper)
 
-    @Throws(SyncException::class)
     override fun <T : Any> clientSync(sourceObject: SyncObject<T>, syncData: SyncData): SyncObject<T> {
         return sync(sourceObject, syncData, syncData.masterVersion)
     }
 
-    @Throws(SyncException::class)
     override fun <T : Any> masterSync(sourceObject: SyncObject<T>, syncData: SyncData): SyncObject<T> {
         return sync(sourceObject, syncData, sourceObject.version)
     }
 
-    @Throws(SyncException::class)
     protected fun <T : Any> sync(sourceObject: SyncObject<T>, syncData: SyncData, targetVersion: Long): SyncObject<T> {
         if (sourceObject.version != syncData.version) throw InvalidSyncVersionException("Sync Version Mismatch")
 

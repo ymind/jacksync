@@ -16,7 +16,6 @@ class ObjectMergeProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addTitle() {
         val postV1 = Post()
         val title = "my test title"
@@ -33,7 +32,6 @@ class ObjectMergeProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addAuthor() {
         val postV1 = Post()
         val author = Author("james", "bond", "james.bond@007.com")
@@ -50,7 +48,6 @@ class ObjectMergeProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun replaceAuthorFirstName() {
         val postV1 = Post()
         postV1.author = Author("1", "2", "3")
@@ -64,7 +61,6 @@ class ObjectMergeProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun replaceAuthorFirstNameToNull() {
         val postV1 = Post()
         postV1.author = Author("1", "2", "3")
@@ -75,7 +71,6 @@ class ObjectMergeProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addMiddleSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -103,7 +98,6 @@ class ObjectMergeProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addLastSection() {
         val postV1 = Post()
         postV1.sections = listOf(

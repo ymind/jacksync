@@ -5,11 +5,9 @@ import org.junit.jupiter.api.*
 import team.yi.jacksync.BaseTest
 import team.yi.jacksync.support.dto.*
 import team.yi.jacksync.utils.JacksonUtils
-import java.util.*
 
 class MoveOperationTest : BaseTest() {
     @Test
-    @Throws(Exception::class)
     fun moveFromTitleToAuthorFirstName() {
         val moveMe = "please move me"
         val author = Author("james", "bond", "james.bond@007.com")
@@ -33,7 +31,6 @@ class MoveOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun moveFromTagToCategory() {
         val moveMe = "please move me"
         val postV1 = Post()
@@ -55,7 +52,6 @@ class MoveOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun moveSection() {
         val moveMe = "please move me"
         val postV1 = Post()
@@ -81,7 +77,6 @@ class MoveOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun moveAfterLastSection() {
         val moveMe = "please move me"
         val postV1 = Post()

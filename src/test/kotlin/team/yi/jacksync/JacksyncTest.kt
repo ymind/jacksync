@@ -19,7 +19,6 @@ class JacksyncTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addTitle() {
         val title = "my test title"
 

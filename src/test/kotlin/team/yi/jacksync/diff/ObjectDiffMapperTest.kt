@@ -32,7 +32,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addTitle() {
         val source = Post()
         val target = Post()
@@ -54,7 +53,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addAuthor() {
         val source = Post()
         val target = Post()
@@ -76,7 +74,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addAuthorFirstName() {
         val source = Post()
         source.author = Author()
@@ -100,7 +97,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addFirstSection() {
         val source = Post()
 
@@ -125,7 +121,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addMiddleSection() {
         val source = Post()
         source.sections = listOf(
@@ -160,7 +155,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addLastSection() {
         val source = Post()
         source.sections = listOf(
@@ -195,7 +189,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeTitle() {
         val source = Post()
         source.title = "my test title"
@@ -217,7 +210,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeAuthor() {
         val source = Post()
         source.author = Author("james", "bond", "james.bond@007.com")
@@ -239,7 +231,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeAuthorFirstName() {
         val source = Post()
         source.author = Author("james", null, null)
@@ -263,7 +254,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeSections() {
         val source = Post()
         source.sections = listOf(
@@ -289,7 +279,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeFirstSection() {
         val source = Post()
         source.sections = listOf(
@@ -313,7 +302,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeMiddleSection() {
         val source = Post()
         source.sections = listOf(
@@ -348,7 +336,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeLastSection() {
         val source = Post()
         source.sections = listOf(
@@ -383,7 +370,6 @@ class ObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun complicated() {
         val source = Post()
         source.id = "1"

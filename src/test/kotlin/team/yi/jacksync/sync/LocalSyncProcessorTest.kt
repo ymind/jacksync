@@ -5,7 +5,6 @@ import team.yi.jacksync.BaseTest
 import team.yi.jacksync.operation.*
 import team.yi.jacksync.support.dto.Post
 import team.yi.jacksync.utils.*
-import java.util.*
 
 class LocalSyncProcessorTest : BaseTest() {
     private lateinit var syncProcessor: SyncProcessor
@@ -16,7 +15,6 @@ class LocalSyncProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun serverSyncV1() {
         // server post
         val serverPostV1 = Post()
@@ -48,7 +46,6 @@ class LocalSyncProcessorTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun clientSyncV2() {
         // client post
         val clientPostV1 = Post()

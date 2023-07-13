@@ -18,7 +18,6 @@ open class SyncObjectDiffMapper(
         objectDiffMapper = ObjectDiffMapper(objectMapperWrapper, diffStrategy)
     }
 
-    @Throws(DiffProcessingException::class)
     override fun <T> diff(source: SyncObject<T>, target: SyncObject<T>): SyncData {
         return try {
             val targetChecksum = if (isComputeChecksum) {

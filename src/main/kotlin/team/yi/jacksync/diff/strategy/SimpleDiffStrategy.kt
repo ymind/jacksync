@@ -2,13 +2,11 @@ package team.yi.jacksync.diff.strategy
 
 import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.databind.JsonNode
-import team.yi.jacksync.exception.DiffProcessingException
 import team.yi.jacksync.operation.*
 import team.yi.jacksync.utils.JacksonUtils
 import kotlin.math.max
 
 class SimpleDiffStrategy : DiffStrategy {
-    @Throws(DiffProcessingException::class)
     override fun diff(sourceJsonNode: JsonNode, targetJsonNode: JsonNode): List<PatchOperation> {
         val operations: MutableList<PatchOperation> = ArrayList()
 

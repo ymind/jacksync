@@ -3,14 +3,12 @@ package team.yi.jacksync.diff.strategy
 import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
-import team.yi.jacksync.exception.DiffProcessingException
 import team.yi.jacksync.operation.*
 import team.yi.jacksync.utils.JacksonUtils
 
 class MergeOperationDiffStrategy : DiffStrategy {
     var diffStrategy: DiffStrategy = SimpleDiffStrategy()
 
-    @Throws(DiffProcessingException::class)
     override fun diff(sourceJsonNode: JsonNode, targetJsonNode: JsonNode): List<PatchOperation> {
         val operations = diffStrategy.diff(sourceJsonNode, targetJsonNode)
 

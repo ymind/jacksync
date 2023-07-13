@@ -6,11 +6,9 @@ import team.yi.jacksync.BaseTest
 import team.yi.jacksync.exception.InvalidTestValueException
 import team.yi.jacksync.support.dto.*
 import team.yi.jacksync.utils.JacksonUtils
-import java.util.*
 
 class TestOperationTest : BaseTest() {
     @Test
-    @Throws(Exception::class)
     fun testTitle() {
         val title = "please test me"
         val postV1 = Post()
@@ -47,7 +45,6 @@ class TestOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun testTags() {
         val testMe = "please test me"
         val postV1 = Post()
@@ -85,7 +82,6 @@ class TestOperationTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun testSection() {
         val section2 = Section("section-2", null)
         val postV1 = Post()

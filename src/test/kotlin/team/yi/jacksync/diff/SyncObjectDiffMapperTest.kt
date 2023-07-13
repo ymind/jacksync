@@ -49,7 +49,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addTitle() {
         val postV1 = Post()
         val postV1_1 = Post()
@@ -71,7 +70,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addAuthor() {
         val postV1 = Post()
         val postV1_1 = Post()
@@ -93,7 +91,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addAuthorFirstName() {
         val postV1 = Post()
         postV1.author = Author()
@@ -117,7 +114,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addFirstSection() {
         val postV1 = Post()
         val postV1_1 = Post()
@@ -141,7 +137,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addMiddleSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -176,7 +171,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun addLastSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -211,7 +205,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeTitle() {
         val postV1 = Post()
         postV1.title = "my test title"
@@ -234,7 +227,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeAuthor() {
         val postV1 = Post()
         postV1.author = Author("james", "bond", "james.bond@007.com")
@@ -257,7 +249,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeAuthorFirstName() {
         val postV1 = Post()
         postV1.author = Author("james", null, null)
@@ -281,7 +272,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeSections() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -308,7 +298,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeFirstSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -333,7 +322,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeMiddleSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -368,7 +356,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun removeLastSection() {
         val postV1 = Post()
         postV1.sections = listOf(
@@ -403,7 +390,6 @@ class SyncObjectDiffMapperTest : BaseTest() {
     }
 
     @Test
-    @Throws(Exception::class)
     fun complicated() {
         syncDiffMapper = SyncObjectDiffMapper(objectMapperWrapper, MergeOperationDiffStrategy())
 
