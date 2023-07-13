@@ -7,29 +7,51 @@ import team.yi.jacksync.utils.JacksonUtils
 import kotlin.math.max
 
 class SimpleDiffStrategy : DiffStrategy {
-    override fun diff(sourceJsonNode: JsonNode, targetJsonNode: JsonNode): List<PatchOperation> {
-        val operations: MutableList<PatchOperation> = ArrayList()
+    override fun diff(sourceJsonNode: JsonNode, targetJsonNode: JsonNode, invertible: Boolean): List<PatchOperation> {
+        val patchOperations = mutableListOf<PatchOperation>()
 
-        return diff(sourceJsonNode, targetJsonNode, operations, JsonPointer.compile(""))
+        return diff(sourceJsonNode, targetJsonNode, patchOperations, JsonPointer.compile(""), invertible)
     }
 
-    fun diff(sourceJsonNode: JsonNode?, targetJsonNode: JsonNode?, patchOperations: MutableList<PatchOperation>, path: JsonPointer): List<PatchOperation> {
+    fun diff(
+        sourceJsonNode: JsonNode?,
+        targetJsonNode: JsonNode?,
+        patchOperations: MutableList<PatchOperation>,
+        path: JsonPointer,
+        invertible: Boolean
+    ): List<PatchOperation> {
         if (sourceJsonNode == null || targetJsonNode == null) return patchOperations
 
         if (sourceJsonNode != targetJsonNode) {
-            if (sourceJsonNode.isArray && targetJsonNode.isArray) {
-                diffArrays(sourceJsonNode, targetJsonNode, patchOperations, path)
-            } else if (sourceJsonNode.isObject && targetJsonNode.isObject) {
-                diffObjects(sourceJsonNode, targetJsonNode, patchOperations, path)
-            } else {
-                patchOperations.add(ReplaceOperation(path, targetJsonNode.deepCopy()))
+            when {
+                sourceJsonNode.isArray && targetJsonNode.isArray -> {
+                    diffArrays(sourceJsonNode, targetJsonNode, patchOperations, path, invertible)
+                }
+
+                sourceJsonNode.isObject && targetJsonNode.isObject -> {
+                    diffObjects(sourceJsonNode, targetJsonNode, patchOperations, path, invertible)
+                }
+
+                else -> {
+                    if (invertible) {
+                        patchOperations.add(TestOperation(path, sourceJsonNode.deepCopy()))
+                    }
+
+                    patchOperations.add(ReplaceOperation(path, targetJsonNode.deepCopy()))
+                }
             }
         }
 
         return patchOperations
     }
 
-    private fun diffArrays(sourceJsonNode: JsonNode, targetJsonNode: JsonNode, patchOperations: MutableList<PatchOperation>, path: JsonPointer): List<PatchOperation> {
+    private fun diffArrays(
+        sourceJsonNode: JsonNode,
+        targetJsonNode: JsonNode,
+        patchOperations: MutableList<PatchOperation>,
+        path: JsonPointer,
+        invertible: Boolean
+    ): List<PatchOperation> {
         if (sourceJsonNode.isArray && targetJsonNode.isArray) {
             val commonNodes: MutableList<JsonNode> = ArrayList()
 
@@ -61,6 +83,10 @@ class SimpleDiffStrategy : DiffStrategy {
                             // add missing target
                             val targetPath = JacksonUtils.append(path, (targetIndex++).toString())
 
+                            if (invertible) {
+                                patchOperations.add(TestOperation(targetPath, sourceNode?.deepCopy()))
+                            }
+
                             patchOperations.add(AddOperation(targetPath, targetNode?.deepCopy()))
                         }
 
@@ -68,13 +94,17 @@ class SimpleDiffStrategy : DiffStrategy {
                             // remove target
                             val targetPath = JacksonUtils.append(path, (sourceIndex++).toString())
 
+                            if (invertible) {
+                                patchOperations.add(TestOperation(targetPath, sourceNode?.deepCopy()))
+                            }
+
                             patchOperations.add(RemoveOperation(targetPath))
                         }
 
                         else -> {
                             val targetPath = JacksonUtils.append(path, (targetIndex++).toString())
 
-                            diff(sourceNode, targetNode, patchOperations, targetPath)
+                            diff(sourceNode, targetNode, patchOperations, targetPath, invertible)
 
                             ++sourceIndex
                         }
@@ -86,15 +116,25 @@ class SimpleDiffStrategy : DiffStrategy {
         return patchOperations
     }
 
-    private fun diffObjects(sourceJsonNode: JsonNode, targetJsonNode: JsonNode, patchOperations: MutableList<PatchOperation>, path: JsonPointer): List<PatchOperation> {
+    private fun diffObjects(
+        sourceJsonNode: JsonNode,
+        targetJsonNode: JsonNode,
+        patchOperations: MutableList<PatchOperation>,
+        path: JsonPointer,
+        invertible: Boolean
+    ): List<PatchOperation> {
         if (sourceJsonNode.isObject && targetJsonNode.isObject) {
             // source iteration
             sourceJsonNode.fieldNames().forEachRemaining { fieldName ->
                 val fieldNamePath = JacksonUtils.append(path, fieldName ?: return@forEachRemaining)
 
                 if (targetJsonNode.has(fieldName)) {
-                    diff(sourceJsonNode.path(fieldName), targetJsonNode.path(fieldName), patchOperations, fieldNamePath)
+                    diff(sourceJsonNode.path(fieldName), targetJsonNode.path(fieldName), patchOperations, fieldNamePath, invertible)
                 } else {
+                    if (invertible) {
+                        patchOperations.add(TestOperation(fieldNamePath, sourceJsonNode.path(fieldName).deepCopy()))
+                    }
+
                     patchOperations.add(RemoveOperation(fieldNamePath))
                 }
             }
@@ -103,6 +143,10 @@ class SimpleDiffStrategy : DiffStrategy {
             targetJsonNode.fieldNames().forEachRemaining { fieldName ->
                 if (!sourceJsonNode.has(fieldName ?: return@forEachRemaining)) {
                     val fieldNamePath = JacksonUtils.append(path, fieldName)
+
+                    if (invertible) {
+                        patchOperations.add(TestOperation(fieldNamePath, sourceJsonNode.path(fieldName).deepCopy()))
+                    }
 
                     patchOperations.add(AddOperation(fieldNamePath, targetJsonNode.path(fieldName).deepCopy()))
                 }

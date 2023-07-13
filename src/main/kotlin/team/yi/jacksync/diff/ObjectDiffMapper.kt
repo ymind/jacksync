@@ -9,13 +9,13 @@ class ObjectDiffMapper(
     private val objectMapperWrapper: JacksonObjectMapperWrapper,
     private val diffStrategy: DiffStrategy = SimpleDiffStrategy(),
 ) : DiffMapper {
-    override fun <T> diff(source: T, target: T): List<PatchOperation> {
+    override fun <T> diff(source: T, target: T, invertible: Boolean): List<PatchOperation> {
         requireNotNull(source) { "Source object cannot be null" }
         requireNotNull(target) { "Target object cannot be null" }
 
         val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)
         val targetJsonNode = objectMapperWrapper.valueToTree<JsonNode>(target)
 
-        return diffStrategy.diff(sourceJsonNode, targetJsonNode)
+        return diffStrategy.diff(sourceJsonNode, targetJsonNode, invertible)
     }
 }

@@ -395,7 +395,7 @@ class ObjectDiffMapperTest : BaseTest() {
             Section("section-4 update", null, "private note"),
         )
 
-        val operations = diffMapper.diff(source, target)
+        val operations = diffMapper.diff(source, target, true)
 
         // operations simple diff
         val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(source)

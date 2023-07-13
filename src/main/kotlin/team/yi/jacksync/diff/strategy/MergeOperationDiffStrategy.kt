@@ -7,10 +7,10 @@ import team.yi.jacksync.operation.*
 import team.yi.jacksync.utils.JacksonUtils
 
 class MergeOperationDiffStrategy : DiffStrategy {
-    var diffStrategy: DiffStrategy = SimpleDiffStrategy()
+    private val diffStrategy: DiffStrategy = SimpleDiffStrategy()
 
-    override fun diff(sourceJsonNode: JsonNode, targetJsonNode: JsonNode): List<PatchOperation> {
-        val operations = diffStrategy.diff(sourceJsonNode, targetJsonNode)
+    override fun diff(sourceJsonNode: JsonNode, targetJsonNode: JsonNode, invertible: Boolean): List<PatchOperation> {
+        val operations = diffStrategy.diff(sourceJsonNode, targetJsonNode, invertible)
 
         return optimize(targetJsonNode, operations)
     }

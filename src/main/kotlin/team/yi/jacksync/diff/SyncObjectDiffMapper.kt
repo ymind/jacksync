@@ -6,19 +6,14 @@ import team.yi.jacksync.exception.DiffProcessingException
 import team.yi.jacksync.sync.*
 import team.yi.jacksync.utils.ChecksumUtils
 
-open class SyncObjectDiffMapper(
-    protected var objectMapperWrapper: JacksonObjectMapperWrapper,
+class SyncObjectDiffMapper(
+    private val objectMapperWrapper: JacksonObjectMapperWrapper,
     diffStrategy: DiffStrategy = SimpleDiffStrategy(),
-    var isComputeChecksum: Boolean = false,
+    internal var isComputeChecksum: Boolean = false,
 ) : SyncDiffMapper {
-    var objectDiffMapper: ObjectDiffMapper
-        protected set
+    private val objectDiffMapper: ObjectDiffMapper = ObjectDiffMapper(objectMapperWrapper, diffStrategy)
 
-    init {
-        objectDiffMapper = ObjectDiffMapper(objectMapperWrapper, diffStrategy)
-    }
-
-    override fun <T> diff(source: SyncObject<T>, target: SyncObject<T>): SyncData {
+    override fun <T> diff(source: SyncObject<T>, target: SyncObject<T>, invertible: Boolean): SyncData {
         return try {
             val targetChecksum = if (isComputeChecksum) {
                 val targetJson = objectMapperWrapper.writeValueAsString(target)
@@ -32,7 +27,7 @@ open class SyncObjectDiffMapper(
                 source.version,
                 target.version,
                 targetChecksum,
-                objectDiffMapper.diff(source.data, target.data),
+                objectDiffMapper.diff(source.data, target.data, invertible),
             )
         } catch (e: Exception) {
             throw DiffProcessingException(e)
