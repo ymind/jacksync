@@ -35,6 +35,12 @@ java {
 }
 
 repositories {
+    mavenLocal()
+
+    maven("https://repo.huaweicloud.com/repository/maven/")
+    maven("https://mirrors.cloud.tencent.com/nexus/repository/maven-public/")
+    maven("https://ymind-maven.pkg.coding.net/repository/emtboot/public/")
+
     mavenCentral()
 }
 
@@ -54,6 +60,8 @@ tasks {
     test { useJUnitPlatform() }
 
     val kotlinSettings: KotlinCompile.() -> Unit = {
+        kotlinOptions.apiVersion = "1.8"
+        kotlinOptions.languageVersion = "1.8"
         kotlinOptions.jvmTarget = "1.8"
         kotlinOptions.freeCompilerArgs += listOf(
             "-Xjsr305=strict"

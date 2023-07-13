@@ -39,7 +39,7 @@ out/
 
 ### CUSTOM CONFIG ###
 .okhttpcache
-secret.gpg
+/secret.*
 
 logs/
 !**/src/main/**/logs/
