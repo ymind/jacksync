@@ -9,12 +9,7 @@ import team.yi.jacksync.sync.SyncObject
 
 @Suppress("LocalVariableName", "VariableNaming")
 class SyncObjectDiffMapperTest : BaseTest() {
-    private lateinit var syncDiffMapper: SyncDiffMapper
-
-    @BeforeEach
-    fun beforeEach() {
-        syncDiffMapper = SyncObjectDiffMapper(objectMapperWrapper)
-    }
+    private val syncDiffMapper = SyncObjectDiffMapper(objectMapperWrapper)
 
     @Test
     fun diffFailsSourceIsNull() {
@@ -391,7 +386,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
 
     @Test
     fun complicated() {
-        syncDiffMapper = SyncObjectDiffMapper(objectMapperWrapper, MergeOperationDiffStrategy())
+        val syncDiffMapper = SyncObjectDiffMapper(objectMapperWrapper, MergeOperationDiffStrategy())
 
         val source = Post()
         source.id = "1"

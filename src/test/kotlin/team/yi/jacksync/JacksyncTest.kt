@@ -6,17 +6,11 @@ import team.yi.jacksync.sync.SyncObject
 import java.util.*
 
 class JacksyncTest : BaseTest() {
-    private lateinit var jacksync: Jacksync
-
-    @BeforeEach
-    fun beforeEach() {
-        jacksync = Jacksync
-            .builder(objectMapperWrapper)
-            .syncProcessor()
-            .diffMapper()
-            .simpleDiffStrategy()
-            .build()
-    }
+    private val jacksync = Jacksync.builder(objectMapperWrapper)
+        .syncProcessor()
+        .diffMapper()
+        .simpleDiffStrategy()
+        .build()
 
     @Test
     fun addTitle() {

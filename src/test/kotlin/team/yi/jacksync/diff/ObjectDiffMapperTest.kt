@@ -6,12 +6,7 @@ import team.yi.jacksync.BaseTest
 import team.yi.jacksync.support.dto.*
 
 class ObjectDiffMapperTest : BaseTest() {
-    private lateinit var diffMapper: DiffMapper
-
-    @BeforeEach
-    fun beforeEach() {
-        diffMapper = ObjectDiffMapper(objectMapperWrapper)
-    }
+    private val diffMapper = ObjectDiffMapper(objectMapperWrapper)
 
     @Test
     fun diffFailsSourceIsNull() {

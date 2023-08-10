@@ -10,12 +10,7 @@ import team.yi.jacksync.utils.JacksonUtils
 
 @Suppress("LocalVariableName", "VariableNaming")
 class ObjectPatchProcessorTest : BaseTest() {
-    private lateinit var patchProcessor: PatchProcessor
-
-    @BeforeEach
-    fun beforeEach() {
-        patchProcessor = ObjectPatchProcessor(objectMapperWrapper)
-    }
+    private val patchProcessor = ObjectPatchProcessor(objectMapperWrapper)
 
     @Test
     fun serverSyncV1() {

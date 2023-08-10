@@ -7,12 +7,7 @@ import team.yi.jacksync.support.dto.*
 
 @Suppress("LocalVariableName", "VariableNaming")
 class SimpleDiffStrategyTest : BaseTest() {
-    private lateinit var simpleDiffStrategy: SimpleDiffStrategy
-
-    @BeforeEach
-    fun beforeEach() {
-        simpleDiffStrategy = SimpleDiffStrategy()
-    }
+    private val simpleDiffStrategy = SimpleDiffStrategy()
 
     @Test
     fun addTitle() {

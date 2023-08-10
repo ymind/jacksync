@@ -8,12 +8,7 @@ import team.yi.jacksync.support.dto.*
 
 @Suppress("LocalVariableName", "VariableNaming")
 class ObjectMergeProcessorTest : BaseTest() {
-    private lateinit var mergeProcessor: MergeProcessor
-
-    @BeforeEach
-    fun beforeEach() {
-        mergeProcessor = ObjectMergeProcessor(objectMapperWrapper)
-    }
+    private val mergeProcessor = ObjectMergeProcessor(objectMapperWrapper)
 
     @Test
     fun addTitle() {

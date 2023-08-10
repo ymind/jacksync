@@ -7,12 +7,7 @@ import team.yi.jacksync.support.dto.*
 
 @Suppress("LocalVariableName", "VariableNaming")
 class MergeOperationDiffStrategyTest : BaseTest() {
-    private lateinit var mergeOperationDiffStrategy: MergeOperationDiffStrategy
-
-    @BeforeEach
-    fun beforeEach() {
-        mergeOperationDiffStrategy = MergeOperationDiffStrategy()
-    }
+    private val mergeOperationDiffStrategy = MergeOperationDiffStrategy()
 
     @Test
     fun addTitle() {

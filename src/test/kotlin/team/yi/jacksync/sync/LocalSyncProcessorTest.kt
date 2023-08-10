@@ -7,12 +7,7 @@ import team.yi.jacksync.support.dto.Post
 import team.yi.jacksync.utils.*
 
 class LocalSyncProcessorTest : BaseTest() {
-    private lateinit var syncProcessor: SyncProcessor
-
-    @BeforeEach
-    fun beforeEach() {
-        syncProcessor = LocalSyncProcessor(objectMapperWrapper)
-    }
+    private val syncProcessor = LocalSyncProcessor(objectMapperWrapper)
 
     @Test
     fun serverSyncV1() {
