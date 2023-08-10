@@ -14,7 +14,10 @@ class ReplaceOperationTest : BaseTest() {
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val title = "my test title"
-        val replaceOperation = ReplaceOperation(JacksonUtils.toJsonPointer("/title"), objectMapperWrapper.valueToTree(title))
+        val replaceOperation = ReplaceOperation(
+            JacksonUtils.toJsonPointer("/title"),
+            objectMapperWrapper.valueToTree(title),
+        )
         val replaceValueJson = objectMapperWrapper.writeValueAsString(replaceOperation)
 
         // read operation
@@ -33,7 +36,10 @@ class ReplaceOperationTest : BaseTest() {
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val author = Author("james", "bond", "james.bond@007.com")
-        val replaceOperation = ReplaceOperation(JacksonUtils.toJsonPointer("/author"), objectMapperWrapper.valueToTree(author))
+        val replaceOperation = ReplaceOperation(
+            JacksonUtils.toJsonPointer("/author"),
+            objectMapperWrapper.valueToTree(author),
+        )
         val replaceValueJson = objectMapperWrapper.writeValueAsString(replaceOperation)
 
         // read operation
@@ -52,7 +58,10 @@ class ReplaceOperationTest : BaseTest() {
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val firstName = "james"
-        val replaceOperation = ReplaceOperation(JacksonUtils.toJsonPointer("/author/firstName"), objectMapperWrapper.valueToTree(firstName))
+        val replaceOperation = ReplaceOperation(
+            JacksonUtils.toJsonPointer("/author/firstName"),
+            objectMapperWrapper.valueToTree(firstName),
+        )
         val replaceValueJson = objectMapperWrapper.writeValueAsString(replaceOperation)
 
         // read operation
@@ -78,7 +87,10 @@ class ReplaceOperationTest : BaseTest() {
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val section3 = Section("section-3", null)
-        val replaceOperation = ReplaceOperation(JacksonUtils.toJsonPointer("/sections/2"), objectMapperWrapper.valueToTree(section3))
+        val replaceOperation = ReplaceOperation(
+            JacksonUtils.toJsonPointer("/sections/2"),
+            objectMapperWrapper.valueToTree(section3),
+        )
         val replaceValueJson = objectMapperWrapper.writeValueAsString(replaceOperation)
 
         // read operation
@@ -103,7 +115,10 @@ class ReplaceOperationTest : BaseTest() {
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val section5 = Section("section-5", null)
-        val replaceOperation = ReplaceOperation(JacksonUtils.toJsonPointer("/sections/4"), objectMapperWrapper.valueToTree(section5))
+        val replaceOperation = ReplaceOperation(
+            JacksonUtils.toJsonPointer("/sections/4"),
+            objectMapperWrapper.valueToTree(section5),
+        )
         val replaceValueJson = objectMapperWrapper.writeValueAsString(replaceOperation)
 
         // read operation

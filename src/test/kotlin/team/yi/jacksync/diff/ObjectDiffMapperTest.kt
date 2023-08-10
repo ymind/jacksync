@@ -97,7 +97,7 @@ class ObjectDiffMapperTest : BaseTest() {
 
         val target = Post()
         target.sections = listOf(
-            Section("section-1", null)
+            Section("section-1", null),
         )
 
         val operations = diffMapper.diff(source, target)
@@ -277,7 +277,7 @@ class ObjectDiffMapperTest : BaseTest() {
     fun removeFirstSection() {
         val source = Post()
         source.sections = listOf(
-            Section("section-1", null)
+            Section("section-1", null),
         )
 
         val target = Post()

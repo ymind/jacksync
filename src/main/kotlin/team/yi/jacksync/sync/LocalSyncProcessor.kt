@@ -17,18 +17,23 @@ open class LocalSyncProcessor(private val objectMapperWrapper: JacksonObjectMapp
         return sync(sourceObject, syncData, sourceObject.version)
     }
 
+    @Suppress("TooGenericExceptionCaught")
     protected fun <T : Any> sync(sourceObject: SyncObject<T>, syncData: SyncData, targetVersion: Long): SyncObject<T> {
         if (sourceObject.version != syncData.version) throw InvalidSyncVersionException("Sync Version Mismatch")
 
         val targetObject = patchProcessor.patch(sourceObject.data, syncData.operations)
 
-        if (isChecksumValidationEnabled) try {
-            val targetJson = objectMapperWrapper.writeValueAsString(targetObject)
-            val isChecksumValid = ChecksumUtils.verifyChecksum(targetJson, syncData.targetChecksum)
+        if (isChecksumValidationEnabled) {
+            try {
+                val targetJson = objectMapperWrapper.writeValueAsString(targetObject)
+                val isChecksumValid = ChecksumUtils.verifyChecksum(targetJson, syncData.targetChecksum)
 
-            if (!isChecksumValid) throw ChecksumMismatchException("Checksum on target does not match checksum on syncData")
-        } catch (e: Exception) {
-            throw SyncProcessingException(e)
+                if (!isChecksumValid) {
+                    throw ChecksumMismatchException("Checksum on target does not match checksum on syncData")
+                }
+            } catch (e: Exception) {
+                throw SyncProcessingException(e)
+            }
         }
 
         return SyncObject(targetVersion, targetObject)

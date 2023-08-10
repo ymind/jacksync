@@ -16,7 +16,8 @@ class MoveOperationTest : BaseTest() {
         postV1.author = author
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-        val moveOperation = MoveOperation(JacksonUtils.toJsonPointer("/title"), JacksonUtils.toJsonPointer("/author/firstName"))
+        val moveOperation =
+            MoveOperation(JacksonUtils.toJsonPointer("/title"), JacksonUtils.toJsonPointer("/author/firstName"))
         val addValueJson = objectMapperWrapper.writeValueAsString(moveOperation)
 
         // read operation
@@ -38,7 +39,8 @@ class MoveOperationTest : BaseTest() {
         postV1.categories = ArrayList()
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-        val moveOperation = MoveOperation(JacksonUtils.toJsonPointer("/tags/2"), JacksonUtils.toJsonPointer("/categories/0"))
+        val moveOperation =
+            MoveOperation(JacksonUtils.toJsonPointer("/tags/2"), JacksonUtils.toJsonPointer("/categories/0"))
         val addValueJson = objectMapperWrapper.writeValueAsString(moveOperation)
 
         // read operation
@@ -64,7 +66,8 @@ class MoveOperationTest : BaseTest() {
         )
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-        val moveOperation = MoveOperation(JacksonUtils.toJsonPointer("/sections/1"), JacksonUtils.toJsonPointer("/sections/3"))
+        val moveOperation =
+            MoveOperation(JacksonUtils.toJsonPointer("/sections/1"), JacksonUtils.toJsonPointer("/sections/3"))
         val addValueJson = objectMapperWrapper.writeValueAsString(moveOperation)
 
         // read operation
@@ -89,7 +92,8 @@ class MoveOperationTest : BaseTest() {
         )
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-        val moveOperation = MoveOperation(JacksonUtils.toJsonPointer("/sections/1"), JacksonUtils.toJsonPointer("/sections/-"))
+        val moveOperation =
+            MoveOperation(JacksonUtils.toJsonPointer("/sections/1"), JacksonUtils.toJsonPointer("/sections/-"))
         val addValueJson = objectMapperWrapper.writeValueAsString(moveOperation)
 
         // read operation

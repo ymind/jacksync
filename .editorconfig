@@ -22,9 +22,6 @@ ij_editorconfig_space_before_colon=false
 ij_editorconfig_space_before_comma=false
 ij_editorconfig_spaces_around_assignment_operators=false
 
-[{*.sh,mvnw,gradlew}]
-end_of_line=lf
-
 [{*.yml,*.yaml}]
 indent_size=2
 
@@ -39,6 +36,11 @@ indent_size=0
 insert_final_newline=false
 
 [{*.gradle.kts,*.kt,*.kts,*.main.kts,*.space.kts}]
-indent_size=4
-disabled_rules=no-wildcard-imports,import-ordering,indent
-kotlin_imports_layout=*,java.**,javax.**,kotlin.**,^
+ij_kotlin_allow_trailing_comma=true
+ij_kotlin_allow_trailing_comma_on_call_site=true
+ij_kotlin_block_comment_add_space=true
+ij_kotlin_block_comment_at_first_column=false
+ij_kotlin_keep_first_column_comment=false
+ij_kotlin_line_comment_add_space=true
+ij_kotlin_line_comment_add_space_on_reformat=false
+ij_kotlin_line_comment_at_first_column=false

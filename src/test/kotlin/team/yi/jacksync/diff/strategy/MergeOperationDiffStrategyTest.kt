@@ -76,7 +76,7 @@ class MergeOperationDiffStrategyTest : BaseTest() {
         val postV1 = Post()
         val postV1_1 = Post()
         postV1_1.sections = listOf(
-            Section("section-1", null)
+            Section("section-1", null),
         )
 
         // operations simple diff
@@ -250,7 +250,7 @@ class MergeOperationDiffStrategyTest : BaseTest() {
     fun removeFirstSection() {
         val postV1 = Post()
         postV1.sections = listOf(
-            Section("section-1", null)
+            Section("section-1", null),
         )
 
         val postV1_1 = Post()

@@ -11,6 +11,7 @@ import team.yi.jacksync.sync.SyncObject
 class SyncObjectDiffMapperTest : BaseTest() {
     private val syncDiffMapper = SyncObjectDiffMapper(objectMapperWrapper)
 
+    @Suppress("SwallowedException")
     @Test
     fun diffFailsSourceIsNull() {
         val target = Post()
@@ -19,7 +20,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
             try {
                 syncDiffMapper.diff(
                     SyncObject(1L, null),
-                    SyncObject(1L, target)
+                    SyncObject(1L, target),
                 )
             } catch (e: Exception) {
                 throw e.cause!!
@@ -27,6 +28,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
         }
     }
 
+    @Suppress("SwallowedException")
     @Test
     fun diffFailsTargetIsNull() {
         val source = Post()
@@ -35,7 +37,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
             try {
                 syncDiffMapper.diff(
                     SyncObject(1L, source),
-                    SyncObject(1L, null)
+                    SyncObject(1L, null),
                 )
             } catch (e: Exception) {
                 throw e.cause!!
@@ -113,7 +115,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
         val postV1 = Post()
         val postV1_1 = Post()
         postV1_1.sections = listOf(
-            Section("section-1", null)
+            Section("section-1", null),
         )
 
         // operations simple diff
@@ -296,7 +298,7 @@ class SyncObjectDiffMapperTest : BaseTest() {
     fun removeFirstSection() {
         val postV1 = Post()
         postV1.sections = listOf(
-            Section("section-1", null)
+            Section("section-1", null),
         )
 
         val postV1_1 = Post()

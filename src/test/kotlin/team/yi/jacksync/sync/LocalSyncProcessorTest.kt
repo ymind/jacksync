@@ -31,7 +31,9 @@ class LocalSyncProcessorTest : BaseTest() {
             1L,
             0L,
             ChecksumUtils.computeChecksum(objectMapperWrapper.writeValueAsString(targetPost)),
-            listOf(AddOperation(JacksonUtils.toJsonPointer("/title"), objectMapperWrapper.valueToTree(targetPost.title)))
+            listOf(
+                AddOperation(JacksonUtils.toJsonPointer("/title"), objectMapperWrapper.valueToTree(targetPost.title)),
+            ),
         )
 
         // server sync
@@ -59,15 +61,17 @@ class LocalSyncProcessorTest : BaseTest() {
         targetPost.version = 2L
 
         // sync syncData & operations
-        val addOperation = AddOperation(JacksonUtils.toJsonPointer("/title"), objectMapperWrapper.valueToTree(targetPost.title))
-        val replaceOperation = ReplaceOperation(JacksonUtils.toJsonPointer("/version"), objectMapperWrapper.valueToTree(2))
+        val addOperation =
+            AddOperation(JacksonUtils.toJsonPointer("/title"), objectMapperWrapper.valueToTree(targetPost.title))
+        val replaceOperation =
+            ReplaceOperation(JacksonUtils.toJsonPointer("/version"), objectMapperWrapper.valueToTree(2))
         val operations = listOf<PatchOperation>(addOperation, replaceOperation)
 
         val syncData = SyncData(
             1L,
             2L,
             ChecksumUtils.computeChecksum(objectMapperWrapper.writeValueAsString(targetPost)),
-            operations
+            operations,
         )
 
         // server sync

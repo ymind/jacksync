@@ -21,7 +21,7 @@ class ObjectPatchProcessorTest : BaseTest() {
         // operations
         val addOperation: PatchOperation = AddOperation(
             JacksonUtils.toJsonPointer("/title"),
-            objectMapperWrapper.valueToTree("my test title")
+            objectMapperWrapper.valueToTree("my test title"),
         )
         val operations = listOf(addOperation)
 
@@ -47,11 +47,11 @@ class ObjectPatchProcessorTest : BaseTest() {
         // operations
         val addOperation: PatchOperation = AddOperation(
             JacksonUtils.toJsonPointer("/title"),
-            objectMapperWrapper.valueToTree("my 2nd test title")
+            objectMapperWrapper.valueToTree("my 2nd test title"),
         )
         val replaceOperation: PatchOperation = ReplaceOperation(
             JacksonUtils.toJsonPointer("/version"),
-            objectMapperWrapper.valueToTree(2)
+            objectMapperWrapper.valueToTree(2),
         )
         val operations = listOf(addOperation, replaceOperation)
 
@@ -88,7 +88,9 @@ class ObjectPatchProcessorTest : BaseTest() {
 
         // [{"op":"replace","path":"/version","value":2},{"op":"replace","path":"/title","value":"my 2nd test title"},{"op":"remove","path":"/sections/1"}]
         val operations = ObjectDiffMapper(objectMapperWrapper).diff(postV1, postV2)
-        val jsonOperations = objectMapperWrapper.writerFor(object : TypeReference<List<PatchOperation>>() {}).writeValueAsString(operations)
+        val jsonOperations = objectMapperWrapper.writerFor(
+            object : TypeReference<List<PatchOperation>>() {},
+        ).writeValueAsString(operations)
 
         // server patch
         val postV2_1 = patchProcessor.patch(postV1, operations)
@@ -122,7 +124,9 @@ class ObjectPatchProcessorTest : BaseTest() {
         postV2.tags = listOf("007", "Sean Connery", "action")
 
         val operations = ObjectDiffMapper(objectMapperWrapper).diff(postV1, postV2)
-        val jsonOperations = objectMapperWrapper.writerFor(object : TypeReference<List<PatchOperation>>() {}).writeValueAsString(operations)
+        val jsonOperations = objectMapperWrapper.writerFor(
+            object : TypeReference<List<PatchOperation>>() {},
+        ).writeValueAsString(operations)
 
         // server patch
         val postV2_1 = patchProcessor.patch(postV1, operations)

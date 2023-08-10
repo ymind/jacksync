@@ -19,7 +19,7 @@ import java.util.function.UnaryOperator
     JsonSubTypes.Type(value = CopyOperation::class, name = CopyOperation.OP_NAME),
     JsonSubTypes.Type(value = MoveOperation::class, name = MoveOperation.OP_NAME),
     JsonSubTypes.Type(value = TestOperation::class, name = TestOperation.OP_NAME),
-    JsonSubTypes.Type(value = MergeOperation::class, name = MergeOperation.OP_NAME)
+    JsonSubTypes.Type(value = MergeOperation::class, name = MergeOperation.OP_NAME),
 )
 abstract class PatchOperation : UnaryOperator<JsonNode?> {
     abstract val path: JsonPointer

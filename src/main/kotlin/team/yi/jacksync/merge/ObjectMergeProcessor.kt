@@ -29,6 +29,7 @@ class ObjectMergeProcessor(private val objectMapperWrapper: JacksonObjectMapperW
         return merge(sourceObject, MergeOperation(path, value))
     }
 
+    @Suppress("TooGenericExceptionCaught")
     override fun <T : Any> merge(sourceObject: T, operation: MergeOperation): T {
         return try {
             val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(sourceObject)

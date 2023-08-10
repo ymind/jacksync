@@ -13,12 +13,13 @@ class SimpleDiffStrategy : DiffStrategy {
         return diff(sourceJsonNode, targetJsonNode, patchOperations, JsonPointer.compile(""), invertible)
     }
 
+    @Suppress("OptionalWhenBraces")
     fun diff(
         sourceJsonNode: JsonNode?,
         targetJsonNode: JsonNode?,
         patchOperations: MutableList<PatchOperation>,
         path: JsonPointer,
-        invertible: Boolean
+        invertible: Boolean,
     ): List<PatchOperation> {
         if (sourceJsonNode == null || targetJsonNode == null) return patchOperations
 
@@ -50,7 +51,7 @@ class SimpleDiffStrategy : DiffStrategy {
         targetJsonNode: JsonNode,
         patchOperations: MutableList<PatchOperation>,
         path: JsonPointer,
-        invertible: Boolean
+        invertible: Boolean,
     ): List<PatchOperation> {
         if (sourceJsonNode.isArray && targetJsonNode.isArray) {
             val commonNodes: MutableList<JsonNode> = ArrayList()
@@ -68,7 +69,7 @@ class SimpleDiffStrategy : DiffStrategy {
             var targetIndex = 0
             val maxIndex = max(sourceJsonNode.size(), targetJsonNode.size())
 
-            (0 until maxIndex).forEach { _ ->
+            repeat(maxIndex) { _ ->
                 val commonNode = if (commonNodes.size > commonIndex) commonNodes[commonIndex] else null
                 val sourceNode = if (sourceJsonNode.size() > sourceIndex) sourceJsonNode[sourceIndex] else null
                 val targetNode = if (targetJsonNode.size() > targetIndex) targetJsonNode[targetIndex] else null
@@ -121,7 +122,7 @@ class SimpleDiffStrategy : DiffStrategy {
         targetJsonNode: JsonNode,
         patchOperations: MutableList<PatchOperation>,
         path: JsonPointer,
-        invertible: Boolean
+        invertible: Boolean,
     ): List<PatchOperation> {
         if (sourceJsonNode.isObject && targetJsonNode.isObject) {
             // source iteration
@@ -129,7 +130,13 @@ class SimpleDiffStrategy : DiffStrategy {
                 val fieldNamePath = JacksonUtils.append(path, fieldName ?: return@forEachRemaining)
 
                 if (targetJsonNode.has(fieldName)) {
-                    diff(sourceJsonNode.path(fieldName), targetJsonNode.path(fieldName), patchOperations, fieldNamePath, invertible)
+                    diff(
+                        sourceJsonNode.path(fieldName),
+                        targetJsonNode.path(fieldName),
+                        patchOperations,
+                        fieldNamePath,
+                        invertible,
+                    )
                 } else {
                     if (invertible) {
                         patchOperations.add(TestOperation(fieldNamePath, sourceJsonNode.path(fieldName).deepCopy()))

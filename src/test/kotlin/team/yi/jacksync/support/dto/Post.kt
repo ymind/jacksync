@@ -92,7 +92,7 @@ class Post {
             sections,
             categories,
             tags,
-            author
+            author,
         )
     }
 }

@@ -78,7 +78,9 @@ class AddOperation : PatchPathValueOperation {
         if (pathJsonNode.isArray) {
             val pathArrayNode = pathJsonNode as ArrayNode
 
-            if (JacksonUtils.isAfterLastArrayElement(path)) pathArrayNode.add(value) else {
+            if (JacksonUtils.isAfterLastArrayElement(path)) {
+                pathArrayNode.add(value)
+            } else {
                 val index = JacksonUtils.parseLast(path)
 
                 if (index < 0 || index > pathArrayNode.size()) throw NoSuchPathException("No such path index - $index")

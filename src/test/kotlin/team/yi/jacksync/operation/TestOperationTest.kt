@@ -34,7 +34,10 @@ class TestOperationTest : BaseTest() {
             postV1.title = "$title, im different"
 
             val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-            val testOperation = TestOperation(JacksonUtils.toJsonPointer("/title"), objectMapperWrapper.valueToTree(title))
+            val testOperation = TestOperation(
+                JacksonUtils.toJsonPointer("/title"),
+                objectMapperWrapper.valueToTree(title),
+            )
             val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
             // read operation
@@ -51,7 +54,10 @@ class TestOperationTest : BaseTest() {
         postV1.tags = listOf("tag1", "tag2", testMe, "tag3")
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-        val testOperation = TestOperation(JacksonUtils.toJsonPointer("/tags/2"), objectMapperWrapper.valueToTree(testMe))
+        val testOperation = TestOperation(
+            JacksonUtils.toJsonPointer("/tags/2"),
+            objectMapperWrapper.valueToTree(testMe),
+        )
         val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
         // read operation
@@ -70,7 +76,10 @@ class TestOperationTest : BaseTest() {
             postV1.tags = listOf("tag1", "tag2", "$testMe, im different", "tag3")
 
             val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-            val testOperation = TestOperation(JacksonUtils.toJsonPointer("/tags/2"), objectMapperWrapper.valueToTree(testMe))
+            val testOperation = TestOperation(
+                JacksonUtils.toJsonPointer("/tags/2"),
+                objectMapperWrapper.valueToTree(testMe),
+            )
             val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
             // read operation
@@ -94,7 +103,10 @@ class TestOperationTest : BaseTest() {
         )
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-        val testOperation = TestOperation(JacksonUtils.toJsonPointer("/sections/1"), objectMapperWrapper.valueToTree(section2))
+        val testOperation = TestOperation(
+            JacksonUtils.toJsonPointer("/sections/1"),
+            objectMapperWrapper.valueToTree(section2),
+        )
         val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
         // read operation
@@ -119,7 +131,10 @@ class TestOperationTest : BaseTest() {
             )
 
             val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-            val testOperation = TestOperation(JacksonUtils.toJsonPointer("/sections/1"), objectMapperWrapper.valueToTree(section2))
+            val testOperation = TestOperation(
+                JacksonUtils.toJsonPointer("/sections/1"),
+                objectMapperWrapper.valueToTree(section2),
+            )
             val testValueJson = objectMapperWrapper.writeValueAsString(testOperation)
 
             // read operation

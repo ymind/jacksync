@@ -47,7 +47,8 @@ class AddOperationTest : BaseTest() {
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val firstName = "james"
-        val addOperation = AddOperation(JacksonUtils.toJsonPointer("/author/firstName"), objectMapperWrapper.valueToTree(firstName))
+        val addOperation =
+            AddOperation(JacksonUtils.toJsonPointer("/author/firstName"), objectMapperWrapper.valueToTree(firstName))
         val addValueJson = objectMapperWrapper.writeValueAsString(addOperation)
 
         // read operation
@@ -66,7 +67,8 @@ class AddOperationTest : BaseTest() {
         val sections: MutableList<Section> = ArrayList()
         sections.add(section)
 
-        val addOperation = AddOperation(JacksonUtils.toJsonPointer("/sections"), objectMapperWrapper.valueToTree(sections))
+        val addOperation =
+            AddOperation(JacksonUtils.toJsonPointer("/sections"), objectMapperWrapper.valueToTree(sections))
         val addValueJson = objectMapperWrapper.writeValueAsString(addOperation)
 
         // read operation
@@ -90,7 +92,8 @@ class AddOperationTest : BaseTest() {
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val section2_5 = Section("section-2.5", null)
-        val addOperation = AddOperation(JacksonUtils.toJsonPointer("/sections/2"), objectMapperWrapper.valueToTree(section2_5))
+        val addOperation =
+            AddOperation(JacksonUtils.toJsonPointer("/sections/2"), objectMapperWrapper.valueToTree(section2_5))
         val addValueJson = objectMapperWrapper.writeValueAsString(addOperation)
 
         // read operation
@@ -114,7 +117,8 @@ class AddOperationTest : BaseTest() {
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val section5 = Section("section-5", null)
-        val addOperation = AddOperation(JacksonUtils.toJsonPointer("/sections/4"), objectMapperWrapper.valueToTree(section5))
+        val addOperation =
+            AddOperation(JacksonUtils.toJsonPointer("/sections/4"), objectMapperWrapper.valueToTree(section5))
         val addValueJson = objectMapperWrapper.writeValueAsString(addOperation)
 
         // read operation
@@ -138,7 +142,8 @@ class AddOperationTest : BaseTest() {
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val section5 = Section("section-5", null)
-        val addOperation = AddOperation(JacksonUtils.toJsonPointer("/sections/-"), objectMapperWrapper.valueToTree(section5))
+        val addOperation =
+            AddOperation(JacksonUtils.toJsonPointer("/sections/-"), objectMapperWrapper.valueToTree(section5))
         val addValueJson = objectMapperWrapper.writeValueAsString(addOperation)
 
         // read operation

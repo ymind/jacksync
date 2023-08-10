@@ -65,7 +65,11 @@ class TestOperation : PatchPathValueOperation {
     override fun apply(sourceJsonNode: JsonNode?): JsonNode? {
         val pathJsonNode = JacksonUtils.locate(sourceJsonNode ?: return null, path)
 
-        if (pathJsonNode != value) throw InvalidTestValueException("Value test failure - Expected: $value, but: was $pathJsonNode")
+        if (pathJsonNode != value) {
+            throw InvalidTestValueException(
+                "Value test failure - Expected: $value, but: was $pathJsonNode",
+            )
+        }
 
         return sourceJsonNode
     }

@@ -14,11 +14,9 @@ object JacksonUtils {
     const val AFTER_LAST_ARRAY_ELEMENT = "-"
 
     fun isRoot(jsonPointer: JsonPointer): Boolean {
-        return try {
+        return runCatching {
             jsonPointer.head() == null
-        } catch (e: Exception) {
-            false
-        }
+        }.getOrDefault(false)
     }
 
     fun toJsonPointer(path: String?): JsonPointer {

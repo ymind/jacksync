@@ -13,6 +13,7 @@ class SyncObjectDiffMapper(
 ) : SyncDiffMapper {
     private val objectDiffMapper: ObjectDiffMapper = ObjectDiffMapper(objectMapperWrapper, diffStrategy)
 
+    @Suppress("TooGenericExceptionCaught")
     override fun <T> diff(source: SyncObject<T>, target: SyncObject<T>, invertible: Boolean): SyncData {
         return try {
             val targetChecksum = if (isComputeChecksum) {

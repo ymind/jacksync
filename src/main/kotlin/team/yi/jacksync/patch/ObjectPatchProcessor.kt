@@ -20,6 +20,7 @@ class ObjectPatchProcessor(private val objectMapperWrapper: JacksonObjectMapperW
         return patch(sourceObject, operations)
     }
 
+    @Suppress("TooGenericExceptionCaught")
     override fun <T : Any> patch(sourceObject: T, operations: List<PatchOperation>): T {
         return try {
             val sourceJsonNode = objectMapperWrapper.valueToTree<JsonNode>(sourceObject)

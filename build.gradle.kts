@@ -18,7 +18,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.47.0"
 
     // https://plugins.gradle.org/plugin/io.gitlab.arturbosch.detekt
-    id("io.gitlab.arturbosch.detekt") version "1.22.0"
+    id("io.gitlab.arturbosch.detekt") version "1.23.1"
 }
 
 group = "team.yi.jacksync"
@@ -53,6 +53,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine/
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.3")
+
+    // detekt
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
 }
 
 tasks {
@@ -60,11 +63,11 @@ tasks {
     test { useJUnitPlatform() }
 
     val kotlinSettings: KotlinCompile.() -> Unit = {
-        kotlinOptions.apiVersion = "1.8"
-        kotlinOptions.languageVersion = "1.8"
+        kotlinOptions.apiVersion = "1.9"
+        kotlinOptions.languageVersion = "1.9"
         kotlinOptions.jvmTarget = "1.8"
         kotlinOptions.freeCompilerArgs += listOf(
-            "-Xjsr305=strict"
+            "-Xjsr305=strict",
         )
     }
 
@@ -87,20 +90,20 @@ tasks {
         fileSets = setOf(
             team.yi.gradle.plugin.FileSet(
                 file("${project.rootDir}/config/gitlog/CHANGELOG.md.mustache"),
-                file("${project.rootDir}/CHANGELOG.md")
+                file("${project.rootDir}/CHANGELOG.md"),
             ),
             team.yi.gradle.plugin.FileSet(
                 file("${project.rootDir}/config/gitlog/CHANGELOG.zh-cn.md.mustache"),
-                file("${project.rootDir}/CHANGELOG.zh-cn.md")
-            )
+                file("${project.rootDir}/CHANGELOG.zh-cn.md"),
+            ),
         )
         commitLocales = mapOf(
             "en" to file("${project.rootDir}/config/gitlog/commit-locales.md"),
-            "zh-cn" to file("${project.rootDir}/config/gitlog/commit-locales.zh-cn.md")
+            "zh-cn" to file("${project.rootDir}/config/gitlog/commit-locales.zh-cn.md"),
         )
         scopeProfiles = mapOf(
             "en" to file("${project.rootDir}/config/gitlog/commit-scopes.md"),
-            "zh-cn" to file("${project.rootDir}/config/gitlog/commit-scopes.zh-cn.md")
+            "zh-cn" to file("${project.rootDir}/config/gitlog/commit-scopes.zh-cn.md"),
         )
 
         outputs.upToDateWhen { false }
@@ -114,7 +117,7 @@ tasks {
 
         commitLocales = mapOf(
             "en" to file("${project.rootDir}/config/gitlog/commit-locales.md"),
-            "zh-cn" to file("${project.rootDir}/config/gitlog/commit-locales.zh-cn.md")
+            "zh-cn" to file("${project.rootDir}/config/gitlog/commit-locales.zh-cn.md"),
         )
 
         outputs.upToDateWhen { false }
@@ -123,9 +126,9 @@ tasks {
 
 detekt {
     buildUponDefaultConfig = true
-    allRules = false
+    allRules = true
     autoCorrect = true
-    config = files("$rootDir/config/detekt/detekt.yml")
+    config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
     baseline = file("$rootDir/config/detekt/baseline.xml")
 }
 

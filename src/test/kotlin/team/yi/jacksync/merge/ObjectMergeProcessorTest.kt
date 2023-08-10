@@ -50,7 +50,10 @@ class ObjectMergeProcessorTest : BaseTest() {
         val postExpected = Post()
         postExpected.author = Author("james", "2", "3")
 
-        val postV2 = mergeProcessor.merge(postV1, objectMapperWrapper.readTree("{\"author\":{\"firstName\":\"james\"}}"))
+        val postV2 = mergeProcessor.merge(
+            postV1,
+            objectMapperWrapper.readTree("{\"author\":{\"firstName\":\"james\"}}"),
+        )
 
         Assertions.assertEquals(postV2, postExpected)
     }
@@ -110,7 +113,7 @@ class ObjectMergeProcessorTest : BaseTest() {
             Section("section-2", null),
             Section("section-3", null),
             Section("section-4", null),
-            section5
+            section5,
         )
 
         val postV2 = mergeProcessor.merge(postV1, objectMapperWrapper.valueToTree<JsonNode>(postV1_1))

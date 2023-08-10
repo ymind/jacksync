@@ -16,7 +16,8 @@ class CopyOperationTest : BaseTest() {
         postV1.author = author
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-        val copyOperation = CopyOperation(JacksonUtils.toJsonPointer("/title"), JacksonUtils.toJsonPointer("/author/firstName"))
+        val copyOperation =
+            CopyOperation(JacksonUtils.toJsonPointer("/title"), JacksonUtils.toJsonPointer("/author/firstName"))
         val addValueJson = objectMapperWrapper.writeValueAsString(copyOperation)
 
         // read operation
@@ -38,7 +39,8 @@ class CopyOperationTest : BaseTest() {
         postV1.categories = ArrayList()
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-        val copyOperation = CopyOperation(JacksonUtils.toJsonPointer("/tags/2"), JacksonUtils.toJsonPointer("/categories/0"))
+        val copyOperation =
+            CopyOperation(JacksonUtils.toJsonPointer("/tags/2"), JacksonUtils.toJsonPointer("/categories/0"))
         val addValueJson = objectMapperWrapper.writeValueAsString(copyOperation)
 
         // read operation
@@ -63,7 +65,8 @@ class CopyOperationTest : BaseTest() {
         )
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-        val copyOperation = CopyOperation(JacksonUtils.toJsonPointer("/sections/1"), JacksonUtils.toJsonPointer("/sections/3"))
+        val copyOperation =
+            CopyOperation(JacksonUtils.toJsonPointer("/sections/1"), JacksonUtils.toJsonPointer("/sections/3"))
         val addValueJson = objectMapperWrapper.writeValueAsString(copyOperation)
 
         // read operation
@@ -87,7 +90,8 @@ class CopyOperationTest : BaseTest() {
         )
 
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
-        val copyOperation = CopyOperation(JacksonUtils.toJsonPointer("/sections/1"), JacksonUtils.toJsonPointer("/sections/-"))
+        val copyOperation =
+            CopyOperation(JacksonUtils.toJsonPointer("/sections/1"), JacksonUtils.toJsonPointer("/sections/-"))
         val addValueJson = objectMapperWrapper.writeValueAsString(copyOperation)
 
         // read operation

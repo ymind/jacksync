@@ -44,11 +44,13 @@ class JacksyncTest : BaseTest() {
 
         Assertions.assertEquals(syncPostV2.data, postV2)
 
-        println(0.toBitSet().also {
-            it.set(0, true)
-            it.set(1, true)
-            it.set(2, true)
-        }.toInt())
+        println(
+            0.toBitSet().also {
+                it.set(0, true)
+                it.set(1, true)
+                it.set(2, true)
+            }.toInt(),
+        )
     }
 }
 
