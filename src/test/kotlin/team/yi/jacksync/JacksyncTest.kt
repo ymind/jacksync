@@ -38,9 +38,15 @@ class JacksyncTest : BaseTest() {
         )
 
         // SyncData regular diff
-        val syncData = jacksync.diffMapper.diff(SyncObject(1L, postV1), SyncObject(2L, postV2))
+        val syncData = jacksync.diffMapper.diff(
+            SyncObject(1L, postV1),
+            SyncObject(2L, postV2),
+        )
         // SyncObject clientSync
-        val syncPostV2 = jacksync.syncProcessor.clientSync(SyncObject(1L, postV1), syncData)
+        val syncPostV2 = jacksync.syncProcessor.clientSync(
+            SyncObject(1L, postV1),
+            syncData,
+        )
 
         Assertions.assertEquals(syncPostV2.data, postV2)
 

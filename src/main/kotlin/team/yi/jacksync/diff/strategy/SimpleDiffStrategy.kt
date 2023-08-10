@@ -54,11 +54,11 @@ class SimpleDiffStrategy : DiffStrategy {
         invertible: Boolean,
     ): List<PatchOperation> {
         if (sourceJsonNode.isArray && targetJsonNode.isArray) {
-            val commonNodes: MutableList<JsonNode> = ArrayList()
+            val commonNodes = mutableListOf<JsonNode>()
 
             sourceJsonNode.iterator().forEachRemaining { e -> commonNodes.add(e) }
 
-            val targetNodes: MutableList<JsonNode> = ArrayList()
+            val targetNodes = mutableListOf<JsonNode>()
 
             targetJsonNode.iterator().forEachRemaining { e -> targetNodes.add(e) }
 

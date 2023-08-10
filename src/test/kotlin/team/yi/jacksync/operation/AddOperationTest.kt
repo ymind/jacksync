@@ -64,7 +64,7 @@ class AddOperationTest : BaseTest() {
         val postV1 = Post()
         val postV1Node = objectMapperWrapper.valueToTree<JsonNode>(postV1)
         val section = Section("section-1", null)
-        val sections: MutableList<Section> = ArrayList()
+        val sections = mutableListOf<Section>()
         sections.add(section)
 
         val addOperation =

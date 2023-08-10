@@ -37,8 +37,11 @@ object DiffLogUtils {
 
         return patchPathOperations.filter { it !is TestOperation }.let { operations ->
             testOperations.map { testOperation ->
-                val operation = operations.firstOrNull { it.path == testOperation.path }
-                    ?: throw DiffLogException("No `PatchOperation` were found matching the `TestOperation(path=${testOperation.path})`.")
+                val operation = requireNotNull(operations.firstOrNull { it.path == testOperation.path }) {
+                    val message = "No `PatchOperation` were found matching the `TestOperation(path=${testOperation.path})`."
+
+                    throw DiffLogException(message)
+                }
 
                 val op = requireNotNull(PatchOperation.getOpName(operation))
                 val value = if (operation is PatchPathValueOperation) operation.value else null

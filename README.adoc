@@ -2,9 +2,9 @@
 :toc:
 
 [NOTE]
-----
+====
 This project fork from https://github.com/shagaba/jacksync.
-----
+====
 
 == Creating and applying sync patches (merge, patch, diff, sync)
 
@@ -110,7 +110,6 @@ For example:
 [source,kotlin]
 ----
 val patchProcessor = ObjectPatchProcessor(objectMapperWrapper)
-
 val postV2 = patchProcessor.patch(originalPostV1, operations)
 ----
 
@@ -143,7 +142,6 @@ For example:
 [source,kotlin]
 ----
 val mergeProcessor = ObjectMergeProcessor(objectMapperWrapper)
-
 val postV2 = mergeProcessor.merge(originalPostV1, value)
 ----
 

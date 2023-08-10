@@ -19,7 +19,7 @@ class ObjectPatchProcessorTest : BaseTest() {
         postV1.version = 1L
 
         // operations
-        val addOperation: PatchOperation = AddOperation(
+        val addOperation = AddOperation(
             JacksonUtils.toJsonPointer("/title"),
             objectMapperWrapper.valueToTree("my test title"),
         )
@@ -45,11 +45,11 @@ class ObjectPatchProcessorTest : BaseTest() {
         serverPostV1.title = "my 2nd test title"
 
         // operations
-        val addOperation: PatchOperation = AddOperation(
+        val addOperation = AddOperation(
             JacksonUtils.toJsonPointer("/title"),
             objectMapperWrapper.valueToTree("my 2nd test title"),
         )
-        val replaceOperation: PatchOperation = ReplaceOperation(
+        val replaceOperation = ReplaceOperation(
             JacksonUtils.toJsonPointer("/version"),
             objectMapperWrapper.valueToTree(2),
         )

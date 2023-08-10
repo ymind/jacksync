@@ -19,8 +19,7 @@ object JacksonUtils {
         }.getOrDefault(false)
     }
 
-    fun toJsonPointer(path: String?): JsonPointer {
-        requireNotNull(path) { "Path cannot be null" }
+    fun toJsonPointer(path: String): JsonPointer {
         require(path == path.trim()) { "Path has not been trimmed: '$path'" }
 
         return if (SEPARATOR == path.trim()) {

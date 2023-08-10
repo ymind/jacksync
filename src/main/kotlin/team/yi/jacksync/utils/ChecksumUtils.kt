@@ -18,7 +18,7 @@ object ChecksumUtils {
     }
 
     fun computeChecksum(byteArray: ByteArray): String {
-        val checksum: Checksum = CRC32()
+        val checksum = CRC32()
         checksum.update(byteArray, 0, byteArray.size)
 
         return java.lang.Long.toHexString(checksum.value)
