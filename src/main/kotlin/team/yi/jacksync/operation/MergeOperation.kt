@@ -63,26 +63,30 @@ class MergeOperation : PatchPathValueOperation {
             val sourceObjectNode = sourceJsonNode as ObjectNode
 
             sourceObjectNode.removeAll()
-        } else {
-            val iterator = elementJsonNode.fields()
 
-            while (iterator.hasNext()) {
-                val (key, nextValueJsonNode) = iterator.next()
-                val sourceObjectNode = sourceJsonNode as ObjectNode
-                val nextSourceJsonNode = sourceJsonNode[key]
+            return
+        }
 
-                if (!sourceObjectNode.has(key)) {
-                    sourceObjectNode.replace(key, nextValueJsonNode)
+        val iterator = elementJsonNode.fields()
 
-                    continue
-                } else if (!nextSourceJsonNode.isObject || nextValueJsonNode.isNull) {
+        while (iterator.hasNext()) {
+            val (key, nextValueJsonNode) = iterator.next()
+            val sourceObjectNode = sourceJsonNode as ObjectNode
+            val nextSourceJsonNode = sourceJsonNode[key]
+
+            if (sourceObjectNode.has(key)) {
+                if (!nextSourceJsonNode.isObject || nextValueJsonNode.isNull) {
                     sourceObjectNode.replace(key, nextValueJsonNode)
 
                     continue
                 }
+            } else {
+                sourceObjectNode.replace(key, nextValueJsonNode)
 
-                merge(nextSourceJsonNode, nextValueJsonNode)
+                continue
             }
+
+            merge(nextSourceJsonNode, nextValueJsonNode)
         }
     }
 

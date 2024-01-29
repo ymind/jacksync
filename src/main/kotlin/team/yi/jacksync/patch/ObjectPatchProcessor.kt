@@ -12,7 +12,10 @@ class ObjectPatchProcessor(private val objectMapperWrapper: JacksonObjectMapperW
         val operations: List<PatchOperation>
 
         try {
-            operations = objectMapperWrapper.readValue(jsonOperations, object : TypeReference<List<PatchOperation>>() {})
+            operations = objectMapperWrapper.readValue(
+                jsonOperations,
+                object : TypeReference<List<PatchOperation>>() {},
+            )
         } catch (e: IOException) {
             throw IllegalArgumentException(e)
         }

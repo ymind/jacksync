@@ -9,14 +9,14 @@ import team.yi.jacksync.utils.ChecksumUtils
 class SyncObjectDiffMapper(
     private val objectMapperWrapper: JacksonObjectMapperWrapper,
     diffStrategy: DiffStrategy = SimpleDiffStrategy(),
-    internal var isComputeChecksum: Boolean = false,
+    internal var computeChecksum: Boolean = false,
 ) : SyncDiffMapper {
     private val objectDiffMapper: ObjectDiffMapper = ObjectDiffMapper(objectMapperWrapper, diffStrategy)
 
     @Suppress("TooGenericExceptionCaught")
     override fun <T> diff(source: SyncObject<T>, target: SyncObject<T>, invertible: Boolean): SyncData {
         return try {
-            val targetChecksum = if (isComputeChecksum) {
+            val targetChecksum = if (computeChecksum) {
                 val targetJson = objectMapperWrapper.writeValueAsString(target)
 
                 ChecksumUtils.computeChecksum(targetJson)

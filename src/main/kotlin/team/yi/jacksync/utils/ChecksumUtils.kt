@@ -1,7 +1,7 @@
 package team.yi.jacksync.utils
 
 import java.nio.charset.StandardCharsets
-import java.util.zip.*
+import java.util.zip.CRC32
 
 /**
  * Utility methods to compute and validate checksums.

@@ -5,8 +5,10 @@ import team.yi.jacksync.exception.*
 import team.yi.jacksync.patch.*
 import team.yi.jacksync.utils.ChecksumUtils
 
-open class LocalSyncProcessor(private val objectMapperWrapper: JacksonObjectMapperWrapper) : SyncProcessor {
-    override var isChecksumValidationEnabled = false
+open class LocalSyncProcessor(
+    private val objectMapperWrapper: JacksonObjectMapperWrapper,
+    override val checksumValidationEnabled: Boolean = false,
+) : SyncProcessor {
     protected var patchProcessor: PatchProcessor = ObjectPatchProcessor(objectMapperWrapper)
 
     override fun <T : Any> clientSync(sourceObject: SyncObject<T>, syncData: SyncData): SyncObject<T> {
@@ -23,7 +25,7 @@ open class LocalSyncProcessor(private val objectMapperWrapper: JacksonObjectMapp
 
         val targetObject = patchProcessor.patch(sourceObject.data, syncData.operations)
 
-        if (isChecksumValidationEnabled) {
+        if (checksumValidationEnabled) {
             try {
                 val targetJson = objectMapperWrapper.writeValueAsString(targetObject)
                 val isChecksumValid = ChecksumUtils.verifyChecksum(targetJson, syncData.targetChecksum)

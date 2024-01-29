@@ -36,15 +36,16 @@ object JacksonUtils {
     fun locateContainer(sourceJsonNode: JsonNode, path: JsonPointer): JsonNode {
         val pathJsonNode = locate(sourceJsonNode, path)
 
-        if (!pathJsonNode.isContainerNode) throw IllegalContainerException("Path is not a container - $path")
+        if (pathJsonNode.isContainerNode) return pathJsonNode
 
-        return pathJsonNode
+        throw IllegalContainerException("Path is not a container - $path")
     }
 
     fun locate(sourceJsonNode: JsonNode, path: JsonPointer): JsonNode {
         var pathJsonNode = sourceJsonNode
 
         if (!isRoot(path)) pathJsonNode = sourceJsonNode.at(path)
+
         if (pathJsonNode.isMissingNode) throw NoSuchPathException("No such path - $path")
 
         return pathJsonNode

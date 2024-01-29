@@ -70,7 +70,7 @@ class Jacksync private constructor(jacksyncBuilder: JacksyncBuilder) {
         }
 
         fun computeChecksum(isComputeChecksum: Boolean): JacksyncBuilder {
-            syncObjectDiffMapper.isComputeChecksum = isComputeChecksum
+            syncObjectDiffMapper.computeChecksum = isComputeChecksum
 
             return jacksyncBuilder
         }

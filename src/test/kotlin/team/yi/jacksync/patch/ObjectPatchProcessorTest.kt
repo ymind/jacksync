@@ -86,7 +86,11 @@ class ObjectPatchProcessorTest : BaseTest() {
             Section("section-3", null),
         )
 
-        // [{"op":"replace","path":"/version","value":2},{"op":"replace","path":"/title","value":"my 2nd test title"},{"op":"remove","path":"/sections/1"}]
+        // [
+        //   {"op":"replace","path":"/version","value":2},
+        //   {"op":"replace","path":"/title","value":"my 2nd test title"},
+        //   {"op":"remove","path":"/sections/1"}
+        // ]
         val operations = ObjectDiffMapper(objectMapperWrapper).diff(postV1, postV2)
         val jsonOperations = objectMapperWrapper.writerFor(
             object : TypeReference<List<PatchOperation>>() {},

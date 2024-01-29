@@ -22,24 +22,23 @@ class SimpleDiffStrategy : DiffStrategy {
         invertible: Boolean,
     ): List<PatchOperation> {
         if (sourceJsonNode == null || targetJsonNode == null) return patchOperations
+        if (sourceJsonNode == targetJsonNode) return patchOperations
 
-        if (sourceJsonNode != targetJsonNode) {
-            when {
-                sourceJsonNode.isArray && targetJsonNode.isArray -> {
-                    diffArrays(sourceJsonNode, targetJsonNode, patchOperations, path, invertible)
+        when {
+            sourceJsonNode.isArray && targetJsonNode.isArray -> {
+                diffArrays(sourceJsonNode, targetJsonNode, patchOperations, path, invertible)
+            }
+
+            sourceJsonNode.isObject && targetJsonNode.isObject -> {
+                diffObjects(sourceJsonNode, targetJsonNode, patchOperations, path, invertible)
+            }
+
+            else -> {
+                if (invertible) {
+                    patchOperations.add(TestOperation(path, sourceJsonNode.deepCopy()))
                 }
 
-                sourceJsonNode.isObject && targetJsonNode.isObject -> {
-                    diffObjects(sourceJsonNode, targetJsonNode, patchOperations, path, invertible)
-                }
-
-                else -> {
-                    if (invertible) {
-                        patchOperations.add(TestOperation(path, sourceJsonNode.deepCopy()))
-                    }
-
-                    patchOperations.add(ReplaceOperation(path, targetJsonNode.deepCopy()))
-                }
+                patchOperations.add(ReplaceOperation(path, targetJsonNode.deepCopy()))
             }
         }
 
@@ -53,62 +52,62 @@ class SimpleDiffStrategy : DiffStrategy {
         path: JsonPointer,
         invertible: Boolean,
     ): List<PatchOperation> {
-        if (sourceJsonNode.isArray && targetJsonNode.isArray) {
-            val commonNodes = mutableListOf<JsonNode>()
+        if (!sourceJsonNode.isArray || !targetJsonNode.isArray) return patchOperations
 
-            sourceJsonNode.iterator().forEachRemaining { e -> commonNodes.add(e) }
+        val commonNodes = mutableListOf<JsonNode>()
 
-            val targetNodes = mutableListOf<JsonNode>()
+        sourceJsonNode.iterator().forEachRemaining { e -> commonNodes.add(e) }
 
-            targetJsonNode.iterator().forEachRemaining { e -> targetNodes.add(e) }
+        val targetNodes = mutableListOf<JsonNode>()
 
-            commonNodes.retainAll(targetNodes)
+        targetJsonNode.iterator().forEachRemaining { e -> targetNodes.add(e) }
 
-            var commonIndex = 0
-            var sourceIndex = 0
-            var targetIndex = 0
-            val maxIndex = max(sourceJsonNode.size(), targetJsonNode.size())
+        commonNodes.retainAll(targetNodes)
 
-            repeat(maxIndex) { _ ->
-                val commonNode = if (commonNodes.size > commonIndex) commonNodes[commonIndex] else null
-                val sourceNode = if (sourceJsonNode.size() > sourceIndex) sourceJsonNode[sourceIndex] else null
-                val targetNode = if (targetJsonNode.size() > targetIndex) targetJsonNode[targetIndex] else null
+        var commonIndex = 0
+        var sourceIndex = 0
+        var targetIndex = 0
+        val maxIndex = max(sourceJsonNode.size(), targetJsonNode.size())
 
-                if (commonNode == sourceNode && commonNode == targetNode) {
-                    ++commonIndex
-                    ++sourceIndex
-                    ++targetIndex
-                } else {
-                    when (commonNode) {
-                        sourceNode -> {
-                            // add missing target
-                            val targetPath = JacksonUtils.append(path, (targetIndex++).toString())
+        repeat(maxIndex) { _ ->
+            val commonNode = if (commonNodes.size > commonIndex) commonNodes[commonIndex] else null
+            val sourceNode = if (sourceJsonNode.size() > sourceIndex) sourceJsonNode[sourceIndex] else null
+            val targetNode = if (targetJsonNode.size() > targetIndex) targetJsonNode[targetIndex] else null
 
-                            if (invertible) {
-                                patchOperations.add(TestOperation(targetPath, sourceNode?.deepCopy()))
-                            }
+            if (commonNode == sourceNode && commonNode == targetNode) {
+                ++commonIndex
+                ++sourceIndex
+                ++targetIndex
+            } else {
+                when (commonNode) {
+                    sourceNode -> {
+                        // add missing target
+                        val targetPath = JacksonUtils.append(path, (targetIndex++).toString())
 
-                            patchOperations.add(AddOperation(targetPath, targetNode?.deepCopy()))
+                        if (invertible) {
+                            patchOperations.add(TestOperation(targetPath, sourceNode?.deepCopy()))
                         }
 
-                        targetNode -> {
-                            // remove target
-                            val targetPath = JacksonUtils.append(path, (sourceIndex++).toString())
+                        patchOperations.add(AddOperation(targetPath, targetNode?.deepCopy()))
+                    }
 
-                            if (invertible) {
-                                patchOperations.add(TestOperation(targetPath, sourceNode?.deepCopy()))
-                            }
+                    targetNode -> {
+                        // remove target
+                        val targetPath = JacksonUtils.append(path, (sourceIndex++).toString())
 
-                            patchOperations.add(RemoveOperation(targetPath))
+                        if (invertible) {
+                            patchOperations.add(TestOperation(targetPath, sourceNode?.deepCopy()))
                         }
 
-                        else -> {
-                            val targetPath = JacksonUtils.append(path, (targetIndex++).toString())
+                        patchOperations.add(RemoveOperation(targetPath))
+                    }
 
-                            diff(sourceNode, targetNode, patchOperations, targetPath, invertible)
+                    else -> {
+                        val targetPath = JacksonUtils.append(path, (targetIndex++).toString())
 
-                            ++sourceIndex
-                        }
+                        diff(sourceNode, targetNode, patchOperations, targetPath, invertible)
+
+                        ++sourceIndex
                     }
                 }
             }
@@ -124,40 +123,40 @@ class SimpleDiffStrategy : DiffStrategy {
         path: JsonPointer,
         invertible: Boolean,
     ): List<PatchOperation> {
-        if (sourceJsonNode.isObject && targetJsonNode.isObject) {
-            // source iteration
-            sourceJsonNode.fieldNames().forEachRemaining { fieldName ->
-                val fieldNamePath = JacksonUtils.append(path, fieldName ?: return@forEachRemaining)
+        if (!sourceJsonNode.isObject || !targetJsonNode.isObject) return patchOperations
 
-                if (targetJsonNode.has(fieldName)) {
-                    diff(
-                        sourceJsonNode.path(fieldName),
-                        targetJsonNode.path(fieldName),
-                        patchOperations,
-                        fieldNamePath,
-                        invertible,
-                    )
-                } else {
-                    if (invertible) {
-                        patchOperations.add(TestOperation(fieldNamePath, sourceJsonNode.path(fieldName).deepCopy()))
-                    }
+        // source iteration
+        sourceJsonNode.fieldNames().forEachRemaining { fieldName ->
+            val fieldNamePath = JacksonUtils.append(path, fieldName ?: return@forEachRemaining)
 
-                    patchOperations.add(RemoveOperation(fieldNamePath))
+            if (targetJsonNode.has(fieldName)) {
+                diff(
+                    sourceJsonNode.path(fieldName),
+                    targetJsonNode.path(fieldName),
+                    patchOperations,
+                    fieldNamePath,
+                    invertible,
+                )
+            } else {
+                if (invertible) {
+                    patchOperations.add(TestOperation(fieldNamePath, sourceJsonNode.path(fieldName).deepCopy()))
                 }
+
+                patchOperations.add(RemoveOperation(fieldNamePath))
+            }
+        }
+
+        // target iteration
+        targetJsonNode.fieldNames().forEachRemaining { fieldName ->
+            if (sourceJsonNode.has(fieldName)) return@forEachRemaining
+
+            val fieldNamePath = JacksonUtils.append(path, fieldName)
+
+            if (invertible) {
+                patchOperations.add(TestOperation(fieldNamePath, sourceJsonNode.path(fieldName).deepCopy()))
             }
 
-            // target iteration
-            targetJsonNode.fieldNames().forEachRemaining { fieldName ->
-                if (!sourceJsonNode.has(fieldName ?: return@forEachRemaining)) {
-                    val fieldNamePath = JacksonUtils.append(path, fieldName)
-
-                    if (invertible) {
-                        patchOperations.add(TestOperation(fieldNamePath, sourceJsonNode.path(fieldName).deepCopy()))
-                    }
-
-                    patchOperations.add(AddOperation(fieldNamePath, targetJsonNode.path(fieldName).deepCopy()))
-                }
-            }
+            patchOperations.add(AddOperation(fieldNamePath, targetJsonNode.path(fieldName).deepCopy()))
         }
 
         return patchOperations

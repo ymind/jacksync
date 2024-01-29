@@ -45,7 +45,10 @@ class MergeOperationDiffStrategy : DiffStrategy {
         return optimizedOperations
     }
 
-    private fun optimize(targetJsonNode: JsonNode, parentToJsonPointerDataMap: Map<JsonPointer, JsonPointerData>): List<PatchOperation> {
+    private fun optimize(
+        targetJsonNode: JsonNode,
+        parentToJsonPointerDataMap: Map<JsonPointer, JsonPointerData>,
+    ): List<PatchOperation> {
         val optimizedOperations = mutableListOf<PatchOperation>()
         val parentToMergeOperation = mutableMapOf<JsonPointer, MergeOperation>()
 
@@ -55,8 +58,10 @@ class MergeOperationDiffStrategy : DiffStrategy {
             val parentObjectNode = parentJsonNode.deepCopy<ObjectNode>()
             parentObjectNode.retain(jsonPointerData.fieldNames)
 
-            var mergeOperation = MergeOperation(parentPath, parentObjectNode)
-            mergeOperation = parentObjectMergeOperation(targetJsonNode, mergeOperation)
+            val mergeOperation = parentObjectMergeOperation(
+                targetJsonNode,
+                MergeOperation(parentPath, parentObjectNode),
+            )
 
             val parentMergeOperation = parentToMergeOperation[mergeOperation.path]
 
