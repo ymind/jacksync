@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.8.11 (2024-01-29)
+
+### Chores
+
+- **deps**: bumped junit-jupiter-engine version to 5.10.0 ([e3ae7adc](https://github.com/ymind/jacksync/commit/e3ae7adcff383b47bd3576cd522aefb26a9b9f12))
+- **deps**: bumped jackson-databind version to 2.16.1 ([565b362a](https://github.com/ymind/jacksync/commit/565b362a67afbd038e52a6a1e65f50d49d9f3148))
+- **deps**: bumped junit-jupiter-engine version to 5.10.1 ([7f1e71be](https://github.com/ymind/jacksync/commit/7f1e71be68efcd2fd757ce96867bd27e550a805a))
+- **test**: code optimize ([43536a2c](https://github.com/ymind/jacksync/commit/43536a2c0b7f246c21b418ba9792b93f154b3939))
+- code optimize ([d5cc31d2](https://github.com/ymind/jacksync/commit/d5cc31d290caa8d783912fe8c0d8598d1930ef63))
+
+
+### Styles
+
+- code cleanup ([a316d3fd](https://github.com/ymind/jacksync/commit/a316d3fdb3572820b6480d2bd6b613b1d4591f66))
+
+
+### Build System
+
+- **gradle**: bumped gradle version to 8.5 ([399c122e](https://github.com/ymind/jacksync/commit/399c122e223a0f83db982f2fdde8ec4a6b8b534f))
+- **gradle:plugin**: bumped team.yi.semantic-gitlog version to 0.6.5 ([0a03d100](https://github.com/ymind/jacksync/commit/0a03d100c6b0365933afee6c1e640065f295172d))
+- **gradle:plugin**: bumped io.gitlab.arturbosch.detekt version to 1.23.1 ([797835bb](https://github.com/ymind/jacksync/commit/797835bbfd0df7bc22e56b0a32b664536dcaf43e))
+- **gradle:plugin**: bumped io.gitlab.arturbosch.detekt version to 1.23.4 ([1815e94a](https://github.com/ymind/jacksync/commit/1815e94a104990bfe5361d1efd70fbff050ac664))
+- **gradle:plugin**: bumped com.github.ben-manes.versions version to 0.51.0 ([68b704b7](https://github.com/ymind/jacksync/commit/68b704b7ce462151b35d74d9cb5e4d8d9908a995))
+- **kotlin**: bumped kotlin version to 1.9.22 ([c077bb78](https://github.com/ymind/jacksync/commit/c077bb783448525701ac0d4a169491471dfed73d))
+
+
 ## 0.8.0 (2023-07-13)
 
 ### Features
