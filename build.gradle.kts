@@ -15,7 +15,7 @@ plugins {
     // https://plugins.gradle.org/plugin/se.patrikerdes.use-latest-versions
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
     // https://plugins.gradle.org/plugin/com.github.ben-manes.versions
-    id("com.github.ben-manes.versions") version "0.47.0"
+    id("com.github.ben-manes.versions") version "0.51.0"
 
     // https://plugins.gradle.org/plugin/io.gitlab.arturbosch.detekt
     id("io.gitlab.arturbosch.detekt") version "1.23.4"
@@ -35,12 +35,6 @@ java {
 }
 
 repositories {
-    mavenLocal()
-
-    maven("https://repo.huaweicloud.com/repository/maven/")
-    maven("https://mirrors.cloud.tencent.com/nexus/repository/maven-public/")
-    maven("https://ymind-maven.pkg.coding.net/repository/emtboot/public/")
-
     mavenCentral()
 }
 
