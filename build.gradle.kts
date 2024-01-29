@@ -46,7 +46,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine/
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.1")
 
     // detekt
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
