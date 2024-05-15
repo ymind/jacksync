@@ -40,6 +40,7 @@ out/
 ### CUSTOM CONFIG ###
 .okhttpcache
 /secret.*
+.fastRequest
 
 logs/
 !**/src/main/**/logs/
