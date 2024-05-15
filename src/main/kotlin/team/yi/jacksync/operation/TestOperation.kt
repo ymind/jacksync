@@ -2,6 +2,7 @@ package team.yi.jacksync.operation
 
 import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.NumericNode
 import team.yi.jacksync.exception.InvalidTestValueException
 import team.yi.jacksync.utils.JacksonUtils
 
@@ -65,13 +66,16 @@ class TestOperation : PatchPathValueOperation {
     override fun apply(sourceJsonNode: JsonNode?): JsonNode? {
         val pathJsonNode = JacksonUtils.locate(sourceJsonNode ?: return null, path)
 
-        if (pathJsonNode != value) {
-            throw InvalidTestValueException(
-                "Value test failure - Expected: $value, but: was $pathJsonNode",
-            )
+        // 数字比较时，强制归一到同一类型
+        if (pathJsonNode is NumericNode && value is NumericNode) {
+            if (pathJsonNode.decimalValue().compareTo(value?.decimalValue()) == 0) {
+                return sourceJsonNode
+            }
+        } else {
+            if (pathJsonNode == value) return sourceJsonNode
         }
 
-        return sourceJsonNode
+        throw InvalidTestValueException("Value test failure - Expected: $value, but: was $pathJsonNode")
     }
 
     companion object {

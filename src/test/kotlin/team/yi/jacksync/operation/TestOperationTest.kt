@@ -1,6 +1,7 @@
 package team.yi.jacksync.operation
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.LongNode
 import org.junit.jupiter.api.*
 import team.yi.jacksync.BaseTest
 import team.yi.jacksync.exception.InvalidTestValueException
@@ -142,6 +143,24 @@ class TestOperationTest : BaseTest() {
             val postV2Node = operation.apply(postV1Node)
 
             objectMapperWrapper.treeToValue(postV2Node, Post::class.java)
+        }
+    }
+
+    @Test
+    fun testDifferentNumericTypeNodes() {
+        Assertions.assertDoesNotThrow {
+            val section1Node = objectMapperWrapper.valueToTree<JsonNode>(
+                mapOf(
+                    "value" to 0.0,
+                ),
+            )
+
+            val testOperation = TestOperation(
+                JacksonUtils.toJsonPointer("/value"),
+                LongNode(0L),
+            )
+
+            testOperation.apply(section1Node)
         }
     }
 }
