@@ -18,7 +18,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.51.0"
 
     // https://plugins.gradle.org/plugin/io.gitlab.arturbosch.detekt
-    id("io.gitlab.arturbosch.detekt") version "1.23.4"
+    id("io.gitlab.arturbosch.detekt") version "1.23.6"
 }
 
 group = "team.yi.jacksync"
