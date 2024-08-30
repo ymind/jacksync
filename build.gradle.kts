@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     java
@@ -52,21 +52,23 @@ dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
 }
 
+kotlin {
+    compilerOptions {
+        apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
+        jvmTarget = JvmTarget.JVM_1_8
+
+        freeCompilerArgs.addAll(
+            "-Xjsr305=strict",
+            "-Xjvm-default=all",
+            "-opt-in=kotlin.RequiresOptIn",
+        )
+    }
+}
+
 tasks {
     jar { enabled = true }
     test { useJUnitPlatform() }
 
-    val kotlinSettings: KotlinCompile.() -> Unit = {
-        kotlinOptions.apiVersion = "1.9"
-        kotlinOptions.languageVersion = "1.9"
-        kotlinOptions.jvmTarget = "1.8"
-        kotlinOptions.freeCompilerArgs += listOf(
-            "-Xjsr305=strict",
-        )
-    }
-
-    compileKotlin(kotlinSettings)
-    compileTestKotlin(kotlinSettings)
     compileJava { options.encoding = "UTF-8" }
     compileTestJava { options.encoding = "UTF-8" }
     javadoc { options.encoding = "UTF-8" }
