@@ -13,7 +13,7 @@ plugins {
     id("team.yi.semantic-gitlog") version "0.6.5"
 
     // https://plugins.gradle.org/plugin/io.gitlab.arturbosch.detekt
-    id("io.gitlab.arturbosch.detekt") version "1.23.6"
+    id("io.gitlab.arturbosch.detekt") version "1.23.7"
 }
 
 group = "team.yi.jacksync"
