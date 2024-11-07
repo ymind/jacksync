@@ -1,6 +1,24 @@
 # Changelog
 
-## 0.8.16 (2024-05-15)
+## 0.8.24 (2024-11-07)
+
+### Chores
+
+- **deps**: bumped jackson-databind version to 2.17.2 ([9d0e514f](https://github.com/ymind/jacksync/commit/9d0e514fed4be1bfa524cdae1bd4f6d8159a997d))
+- **deps**: bumped junit-jupiter-engine version to 5.11.0 ([e0816b76](https://github.com/ymind/jacksync/commit/e0816b7676a2298a9a28362fd7b4c9f4a50c7ce3))
+- **deps**: bumped jackson-databind version to 2.18.1 ([7d8ec9b6](https://github.com/ymind/jacksync/commit/7d8ec9b6439520a0e0b7155ac2bec269efbd4423))
+- **deps**: bumped junit-jupiter-engine version to 5.11.3 ([d0bd8d6b](https://github.com/ymind/jacksync/commit/d0bd8d6b250363fb015da26f04d60139e841f8a8))
+
+
+### Build System
+
+- **gradle**: bumped gradle version to 8.10 ([305af704](https://github.com/ymind/jacksync/commit/305af704a53cf82e9bae7b14531ff1f0592ddb25))
+- **gradle:plugin**: remove plugin se.patrikerdes.use-latest-versions ([f761a794](https://github.com/ymind/jacksync/commit/f761a794b50acf28f6a1064f04de02e11a6b26e3))
+- **gradle:plugin**: bumped io.gitlab.arturbosch.detekt version to 1.23.7 ([317e5bcb](https://github.com/ymind/jacksync/commit/317e5bcbae5dc7dcf1ac90a11a271c1aa1e4e504))
+- **kotlin**: bumped kotlin version to 2.0.20 ([5e126313](https://github.com/ymind/jacksync/commit/5e126313f1fd1e9fc93d8eb2e046ee98852f794b))
+
+
+## 0.8.16 (2024-05-21)
 
 ### Performance Improvements
 
