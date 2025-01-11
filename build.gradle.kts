@@ -9,6 +9,9 @@ plugins {
     kotlin("plugin.allopen")
     kotlin("plugin.noarg")
 
+    // https://plugins.gradle.org/plugin/tech.yanand.maven-central-publish
+    id("tech.yanand.maven-central-publish") version "1.3.0"
+
     // https://plugins.gradle.org/plugin/team.yi.semantic-gitlog
     id("team.yi.semantic-gitlog") version "0.6.5"
 
@@ -21,9 +24,17 @@ version = "0.8.27"
 description = "Jacksync provides a library for synchronization by producing and applying a JSON patches to Java objects. " +
         "Inspired by RFC 6902 (JSON Patch) and RFC 7386 (JSON Merge Patch) written in Java, which uses Jackson at its core."
 
+val repoUrl = layout.buildDirectory.dir(
+    if (version.toString().endsWith("SNAPSHOT", true)) {
+        "repos/releases"
+    } else {
+        "repos/snapshots"
+    },
+)
+
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 
     withJavadocJar()
     withSourcesJar()
@@ -50,7 +61,7 @@ dependencies {
 kotlin {
     compilerOptions {
         apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
-        jvmTarget = JvmTarget.JVM_1_8
+        jvmTarget = JvmTarget.JVM_17
 
         freeCompilerArgs.addAll(
             "-Xjsr305=strict",
@@ -218,15 +229,7 @@ publishing {
 
     repositories {
         maven {
-            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-
-            url = if (version.toString().endsWith("SNAPSHOT", true)) snapshotsRepoUrl else releasesRepoUrl
-
-            credentials {
-                username = System.getenv("OSSRH_USERNAME") ?: "${properties["OSSRH_USERNAME"]}"
-                password = System.getenv("OSSRH_TOKEN") ?: "${properties["OSSRH_TOKEN"]}"
-            }
+            url = uri(repoUrl)
         }
     }
 }
@@ -237,4 +240,9 @@ signing {
     extra.set("signing.password", System.getenv("OSSRH_GPG_SECRET_PASSWORD") ?: "${properties["OSSRH_GPG_SECRET_PASSWORD"]}")
 
     sign(publishing.publications.getByName("mavenJava"))
+}
+
+mavenCentral {
+    authToken = System.getenv("OSSRH_AUTH_TOKEN") ?: "${properties["OSSRH_AUTH_TOKEN"]}"
+    publishingType = "USER_MANAGED" // USER_MANAGED AUTOMATIC
 }
