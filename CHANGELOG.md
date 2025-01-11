@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.8.27 (2025-01-11)
+
+### Chores
+
+- **deps**: bumped jackson-databind version to 2.18.2 ([796dd083](https://github.com/ymind/jacksync/commit/796dd083fceed21e552ac2cb9ee1351d9c62e47c))
+- **deps**: bumped junit-jupiter-engine version to 5.11.4 ([78351920](https://github.com/ymind/jacksync/commit/783519206f022b3b29cb5aa67feb67b7acbd03b8))
+
+
+### Build System
+
+- **kotlin**: bumped kotlin version to 2.1.0 ([4844879a](https://github.com/ymind/jacksync/commit/4844879ac97e6569596907bd891e60c55a620d8d))
+
+
 ## 0.8.24 (2024-11-07)
 
 ### Chores
